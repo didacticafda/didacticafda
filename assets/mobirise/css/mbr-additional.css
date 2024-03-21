@@ -1353,50 +1353,64 @@ a {
     padding: 1rem;
   }
 }
-.cid-u7CbZWiNKs {
-  padding-top: 8rem;
+.cid-u7F541SL9Q {
+  padding-top: 10rem;
   padding-bottom: 5rem;
-  background-color: #e1e1e1;
+  background-color: #edefeb;
 }
-.cid-u7CbZWiNKs .mbr-fallback-image.disabled {
-  display: none;
+.cid-u7F541SL9Q .mbr-text {
+  color: #000000;
 }
-.cid-u7CbZWiNKs .mbr-fallback-image {
-  display: block;
-  background-size: cover;
-  background-position: center center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
+.cid-u7F541SL9Q .mbr-section-subtitle {
+  color: #000000;
 }
-@media (max-width: 767px) {
-  .cid-u7CbZWiNKs .card-content-text {
-    padding: 1.5rem 1.5rem 0 1.5rem;
-  }
+.cid-u7F541SL9Q .mbr-section-title {
+  color: #000000;
+}
+.cid-u7F5yjKWRI {
+  display: flex;
+  background-image: url("../../../assets/images/20240320-211803.webp");
+}
+.cid-u7F5yjKWRI .mbr-overlay {
+  background-color: #757b62;
+  opacity: 0.5;
 }
 @media (min-width: 768px) {
-  .cid-u7CbZWiNKs .card-content-text {
-    padding: 2.25rem 2.25rem 0 2.25rem;
+  .cid-u7F5yjKWRI {
+    align-items: flex-end;
+  }
+  .cid-u7F5yjKWRI .row {
+    justify-content: center;
+  }
+  .cid-u7F5yjKWRI .content-wrap {
+    padding: 1rem 3rem;
   }
 }
-@media (min-width: 992px) {
-  .cid-u7CbZWiNKs .card-content-text {
-    padding: 4rem 4rem 1rem 4rem;
+@media (max-width: 991px) and (min-width: 768px) {
+  .cid-u7F5yjKWRI .content-wrap {
+    min-width: 50%;
   }
 }
-.cid-u7CbZWiNKs .card-wrapper {
-  background: #ffffff;
+@media (max-width: 767px) {
+  .cid-u7F5yjKWRI {
+    -webkit-align-items: center;
+    align-items: flex-end;
+  }
+  .cid-u7F5yjKWRI .mbr-row {
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .cid-u7F5yjKWRI .content-wrap {
+    width: 100%;
+  }
 }
-.cid-u7CbZWiNKs .mbr-text,
-.cid-u7CbZWiNKs .mbr-section-btn {
-  color: #000000;
-  text-align: left;
+.cid-u7F5yjKWRI .mbr-section-title,
+.cid-u7F5yjKWRI .mbr-section-subtitle {
+  text-align: center;
 }
-.cid-u7CbZWiNKs .card-title,
-.cid-u7CbZWiNKs .card-box {
-  text-align: left;
-  color: #000000;
+.cid-u7F5yjKWRI .mbr-text,
+.cid-u7F5yjKWRI .mbr-section-btn {
+  text-align: center;
 }
 .cid-u7BDI3R89S {
   padding-top: 5rem;
