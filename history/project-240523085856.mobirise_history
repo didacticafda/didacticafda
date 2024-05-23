@@ -1,7 +1,7 @@
 {
   "settings": {
     "name": "Didáctica y Prácticas de la Enseñanza B",
-    "currentPage": "didactica_forms.html",
+    "currentPage": "page3.html",
     "theme": {
       "name": "startm5",
       "title": "StartM5",
@@ -101,7 +101,9 @@
     "uniqCompNum": 82,
     "versionPublish": "5.9.17",
     "screenshot": "screenshot.png",
-    "google-analytics": "<!-- Google tag (gtag.js) -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-7VPR07Q9CG\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-7VPR07Q9CG');\n</script>"
+    "google-analytics": "<!-- Google tag (gtag.js) -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-7VPR07Q9CG\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-7VPR07Q9CG');\n</script>",
+    "publishType": "local",
+    "publishPath": "@PROJECT_PATH@"
   },
   "pages": {
     "index.html": {
