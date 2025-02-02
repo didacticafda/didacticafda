@@ -1351,6 +1351,11 @@ a {
 }
 .cid-uBEw1n7GI9 {
   display: flex;
+  background-image: url("../../../assets/images/bkt03.jpg");
+}
+.cid-uBEw1n7GI9 .mbr-overlay {
+  background-color: #304253;
+  opacity: 0.8;
 }
 @media (min-width: 768px) {
   .cid-uBEw1n7GI9 {
