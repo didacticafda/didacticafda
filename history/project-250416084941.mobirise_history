@@ -858,12 +858,12 @@
           "_anchor": "menu03-35",
           "_isUserblock": true,
           "_cid": "uI4gZGw7Ww",
-          "_PHPplaceholders": [],
-          "_JSplaceholders": [],
           "_protectedParams": [],
           "_global": true,
           "_once": "menu",
-          "_params": {}
+          "_params": {},
+          "_PHPplaceholders": [],
+          "_JSplaceholders": []
         },
         {
           "alias": false,
