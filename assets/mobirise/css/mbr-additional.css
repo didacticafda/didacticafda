@@ -1344,47 +1344,59 @@ a {
     padding: 1rem;
   }
 }
-.cid-uIx9C9e21M {
+.cid-uICWyEjvuM {
+  display: flex;
+  padding-top: 12rem;
+  padding-bottom: 9rem;
   background-image: url("../../../assets/images/vlcsnap-2024-03-24-17h40m58s849-1920x1080.png");
 }
-.cid-uIx9C9e21M .mbr-fallback-image.disabled {
-  display: none;
+.cid-uICWyEjvuM .mbr-overlay {
+  background-color: #3c6389;
+  opacity: 0.7;
 }
-.cid-uIx9C9e21M .mbr-fallback-image {
-  display: block;
-  background-size: cover;
-  background-position: center center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
+@media (min-width: 768px) {
+  .cid-uICWyEjvuM {
+    align-items: center;
+  }
+  .cid-uICWyEjvuM .row {
+    justify-content: center;
+  }
+  .cid-uICWyEjvuM .content-wrap {
+    padding: 1rem 3rem;
+  }
 }
-.cid-uIx9C9e21M .card-wrapper {
-  background: #e8eaed;
-  padding: 2.5rem;
-}
-@media (max-width: 992px) {
-  .cid-uIx9C9e21M .card-wrapper {
-    margin-bottom: 2rem;
+@media (max-width: 991px) and (min-width: 768px) {
+  .cid-uICWyEjvuM .content-wrap {
+    min-width: 50%;
   }
 }
 @media (max-width: 767px) {
-  .cid-uIx9C9e21M .card-wrapper {
-    padding: 1.5rem;
+  .cid-uICWyEjvuM {
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  .cid-uICWyEjvuM .mbr-row {
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .cid-uICWyEjvuM .content-wrap {
+    width: 100%;
   }
 }
-.cid-uIx9C9e21M .row {
-  justify-content: space-between;
+.cid-uICWyEjvuM .mbr-section-title,
+.cid-uICWyEjvuM .mbr-section-subtitle {
+  text-align: center;
 }
-.cid-uIx9C9e21M .mbr-section-title {
+.cid-uICWyEjvuM .mbr-text,
+.cid-uICWyEjvuM .mbr-section-btn {
+  text-align: left;
   color: #ffffff;
 }
-.cid-uIx9C9e21M .mbr-section-subtitle {
-  color: #ffffff;
+.cid-uICWyEjvuM .mbr-section-title {
+  text-align: left;
 }
-.cid-uIx9C9e21M .mbr-text,
-.cid-uIx9C9e21M .mbr-section-btn {
-  color: #ffffff;
+.cid-uICWyEjvuM .mbr-section-subtitle {
+  text-align: left;
 }
 .cid-u7F5yjKWRI {
   display: flex;
@@ -1434,8 +1446,8 @@ a {
   text-align: center;
 }
 .cid-uI4h0JOUDA {
-  padding-top: 10rem;
-  padding-bottom: 5rem;
+  padding-top: 9rem;
+  padding-bottom: 9rem;
   background-color: #ffffff;
 }
 .cid-uI4h0JOUDA .mbr-fallback-image.disabled {
@@ -1476,8 +1488,8 @@ a {
   color: #000000;
 }
 .cid-u9nlfAHdnY {
-  padding-top: 10rem;
-  padding-bottom: 10rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   background: #ffffff;
 }
 .cid-u9nlfAHdnY .mbr-fallback-image.disabled {
