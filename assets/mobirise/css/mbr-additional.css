@@ -1344,6 +1344,50 @@ a {
     padding: 1rem;
   }
 }
+.cid-uJ1q5ZTmHW {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-image: url("../../../assets/images/vlcsnap-2024-03-24-17h40m58s849-3-1920x1080.png");
+}
+.cid-uJ1q5ZTmHW .mbr-fallback-image.disabled {
+  display: none;
+}
+.cid-uJ1q5ZTmHW .mbr-fallback-image {
+  display: block;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+.cid-uJ1q5ZTmHW .card-wrapper {
+  background: #304253;
+}
+@media (max-width: 767px) {
+  .cid-uJ1q5ZTmHW .card-wrapper {
+    padding: 1.5rem;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .cid-uJ1q5ZTmHW .card-wrapper {
+    padding: 2.25rem;
+  }
+}
+@media (min-width: 992px) {
+  .cid-uJ1q5ZTmHW .card-wrapper {
+    padding: 4rem;
+  }
+}
+.cid-uJ1q5ZTmHW .mbr-text,
+.cid-uJ1q5ZTmHW .mbr-section-btn {
+  color: #e3e3e3;
+}
+.cid-uJ1q5ZTmHW .card-title,
+.cid-uJ1q5ZTmHW .card-box {
+  text-align: left;
+  color: #f1f4f8;
+}
 .cid-uICWyEjvuM {
   display: flex;
   padding-top: 12rem;
