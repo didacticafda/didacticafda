@@ -3710,6 +3710,9 @@ a {
 .cid-uNfiEhCQK4 table td {
   border-top: 1px solid #cccccc;
 }
+.cid-uNfiEhCQK4 table.table {
+  background: #ffffff;
+}
 .cid-uNfiEhCQK4 .dataTables_filter {
   text-align: right;
   margin-bottom: .5rem;
