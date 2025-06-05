@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=KSWF8x"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=KSWF8x" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=AffWxB"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=AffWxB" type="text/css">
 
   
   
@@ -110,11 +110,19 @@
       
       <div class="table-wrapper">
         <div class="container">
-          
+          <div class="row search">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="dataTables_filter">
+                  <label class="searchInfo mbr-fonts-style display-5">Buscar:</label>
+                  <input class="form-control input-sm" disabled="">
+                </div>
+            </div>
+          </div>
         </div>
 
         <div class="container scroll">
-          <table class="table" cellspacing="0">
+          <table class="table isSearch" cellspacing="0">
             <thead>
               <tr class="table-heads ">
                   
@@ -191,7 +199,19 @@
           </table>
         </div>
         <div class="container table-info-container">
-          
+          <div class="row info">
+            <div class="col-md-6">
+              <div class="dataTables_info mbr-fonts-style display-7">
+                <span class="infoBefore">Mostrando</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoAfter">entradas</span>
+                <span class="infoFilteredBefore">(filtradas de</span>
+                <span class="inactive infoRows"></span>
+                <span class="infoFilteredAfter"> entradas totales)</span>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
         </div>
       </div>
     </div>
