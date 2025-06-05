@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=m81QHf"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=m81QHf" type="text/css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=7084Mh"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=7084Mh" type="text/css">
 
   
   
@@ -195,6 +195,26 @@
         </div>
       </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            var tables = document.querySelectorAll('section.section-table table');
+            tables.forEach(function (table) {
+                if (table.DataTable) {
+                    table.DataTable.currentPage = 1;
+                    table.DataTable.options.perPage = 99999;
+                    table.DataTable.update();
+                    var paginations = document.querySelectorAll('.dataTable-pagination');
+                    paginations.forEach(function(pager) {
+                        if (pager && pager.parentNode) {
+                            pager.parentNode.removeChild(pager);
+                        }
+                    });
+                }
+            });
+        }, 1000);
+    });
+</script>
 </section>
 
 <section data-bs-version="5.1" class="footer4 cid-uBEEpIt7xX" once="footers" id="footer04-2m">
