@@ -3655,7 +3655,7 @@ a {
 }
 .cid-uNfmfOjzjK {
   padding-top: 10rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   background-color: #ffffff;
 }
 .cid-uNfmfOjzjK .mbr-text {
@@ -3668,84 +3668,27 @@ a {
 .cid-uNfmfOjzjK .mbr-section-title {
   color: #304253;
 }
-.cid-uNgs5mGkv0 {
-  padding-top: 90px;
+.cid-uNlhsNa67K {
+  padding-top: 45px;
   padding-bottom: 90px;
-  background-color: #ffffff;
+  background-color: white;
 }
-.cid-uNgs5mGkv0 .mbr-section-subtitle {
-  color: #767676;
-}
-.cid-uNgs5mGkv0 .container-table {
-  margin: 0 auto;
-}
-.cid-uNgs5mGkv0 .scroll {
-  overflow-x: auto;
-  padding: 0;
-}
-.cid-uNgs5mGkv0 .dataTables_wrapper {
-  display: block;
-}
-.cid-uNgs5mGkv0 .dataTables_wrapper .search {
-  margin-bottom: .5rem;
-}
-.cid-uNgs5mGkv0 .dataTables_wrapper .table {
-  overflow-x: auto;
-}
-.cid-uNgs5mGkv0 table {
-  width: 100% !important;
-  margin-top: 6px;
-  border: 1px solid #ffffff;
-  margin-bottom: 0;
-}
-.cid-uNgs5mGkv0 table th {
-  border-top: none;
-  transition: all .2s;
-  border-bottom: none;
-}
-.cid-uNgs5mGkv0 table th:hover {
-  background: #ffffff;
-  color: #000000;
-}
-.cid-uNgs5mGkv0 table td {
-  border-top: 1px solid #ffffff;
-}
-.cid-uNgs5mGkv0 table.table {
-  background: #ffffff;
-}
-.cid-uNgs5mGkv0 .dataTables_filter {
-  text-align: right;
-  margin-bottom: .5rem;
-}
-.cid-uNgs5mGkv0 .dataTables_filter label {
-  display: inline;
-  white-space: normal !important;
-}
-.cid-uNgs5mGkv0 .dataTables_filter input {
-  display: inline;
+.cid-uNlhsNa67K img {
   width: auto;
-  margin-left: .5rem;
-  border-radius: 100px;
-  padding-left: 1rem;
 }
-.cid-uNgs5mGkv0 .dataTables_info {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
-  white-space: normal !important;
+.cid-uNlhsNa67K table {
+  width: 70%;
+  margin: auto;
+  background-color: white;
+  border: 1px solid #cacaca;
+  font-family: "Montserrat", sans-serif;
 }
-@media (max-width: 992px) {
-  .cid-uNgs5mGkv0 .dataTables_filter {
-    text-align: center;
-  }
-}
-@media (max-width: 350px) {
-  .cid-uNgs5mGkv0 .dataTables_filter {
-    text-align: center;
-  }
-  .cid-uNgs5mGkv0 .dataTables_filter input {
-    width: 100% !important;
-    margin-left: 0 !important;
-  }
+.cid-uNlhsNa67K th,
+.cid-uNlhsNa67K td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
 }
 .cid-uBEEpIt7xX {
   padding-top: 5rem;
