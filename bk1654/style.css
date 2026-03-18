@@ -1,0 +1,896 @@
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+========================================= */
+:root {
+    --acento: #2e6091; /* Azul institucional */
+    --acento-hover: #74ACDF;
+    --texto-oscuro: #222222;
+    --texto-gris: #555555;
+    --fondo-claro: #f8f9fa;
+    --blanco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--fondo-claro);
+    color: var(--texto-oscuro);
+}
+
+/* --- ANIMACIÓN LUZ EN BORDE NAVBAR --- */
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
+
+.navbar {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 75px;
+    
+    /* 1. Restauramos tu fondo original de vidrio esmerilado */
+    background: rgba(255, 255, 255, 0.384);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 25px;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+       transition: 
+    background-color 0.4s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* 2. Al pasar el mouse, ocultamos el borde estático para encender el de luz */
+.navbar:hover {
+    border-color: transparent;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* 3. Creamos el halo de luz mágico en el fondo */
+.navbar::before {
+    content: "";
+    position: absolute;
+    inset: -2px; /* Se expande exacto el grosor de 1px del borde */
+    border-radius: 20px;
+    padding: 2px; /* El grosor de la luz */
+    
+    /* El gradiente de luz */
+    background: conic-gradient(from var(--border-angle), rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.1) 100%);
+    
+    /* 4. LA MÁSCARA: Esto recorta el centro para no tapar tu navbar */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    z-index: -1;
+    opacity: 0; /* Apagado por defecto */
+    transition: opacity 0.3s ease;
+    pointer-events: none; 
+}
+
+/* 5. Al hacer hover, encendemos el halo y lo hacemos girar */
+.navbar:hover::before {
+    opacity: 1;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    100% { --border-angle: 1turn; }
+}
+
+/* Íconos Izquierda */
+.nav-icons-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- ÍCONOS DE LA IZQUIERDA --- */
+/* --- ÍCONOS DE LA IZQUIERDA --- */
+.nav-icons-left a {
+    color: #3e77b1; /* Mantenemos tu azul luminoso */
+    font-size: 1.2rem;
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    /* Le damos una base muy sutil de vidrio para que el hueco se note después */
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    
+    transition: all 0.3s ease;
+}
+
+.nav-icons-left a:hover,
+.nav-icons-left a:active {
+    /* Oscurecemos el fondo creando el efecto de sombra en el hueco */
+    background-color: rgba(0, 0, 0, 0.05); 
+    color: #1d3f5f; /* Un azul un poco más oscuro al presionar para dar contraste */
+    
+    /* El ícono se hunde físicamente (baja y se achica apenas) */
+    transform: translateY(2px) scale(0.95);
+    
+    /* Sombras internas (inset) circulares para el efecto presionado */
+    box-shadow: 
+        inset 0 3px 6px rgba(0, 0, 0, 0.15),
+        inset 0 1px 3px rgba(0, 0, 0, 0.1),
+        0 0 0 transparent;
+        
+    /* Apagamos el brillo del borde */
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Logo Centro */
+.nav-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- LOGO ANIMACIÓN --- */
+.nav-logo img {
+    height: 66px;
+    width: auto;
+    /* Transición elástica para un movimiento orgánico */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-logo:hover img {
+    transform: scale(1.08) translateY(-2px); /* Se agranda un 8% y sube un poquito */
+    /* Crea una sombra con tu azul oscuro (#1d3f5f) para que parezca que se despega del vidrio */
+    filter: drop-shadow(0 8px 12px rgb(252, 253, 255)); 
+}
+
+/* Botón Derecha */
+.nav-button-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* --- BOTÓN DE LA DERECHA (AZUL INTENSO SÓLIDO) --- */
+/* --- BOTÓN DE LA DERECHA (EFECTO VIDRIO PRESIONADO) --- */
+.btn-vinculos {
+    /* Mantenemos tu azul institucional pero con un toque de transparencia para el glassmorphism */
+    background-color: rgba(57, 103, 149, 0.85); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    
+    color: var(--blanco) !important;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    
+    /* Sombra suave hacia afuera en estado normal y un borde claro sutil típico del vidrio */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    
+    /* Transición un poco más rápida (0.3s) para que la respuesta táctil se sienta natural */
+    transition: all 0.3s ease; 
+}
+
+/* Efecto al pasar el mouse (hover) y al hacer clic (active) */
+.btn-vinculos:hover,
+.btn-vinculos:active {
+    /* Oscurecemos ligeramente el fondo para simular profundidad */
+    background-color: rgba(46, 83, 120, 0.7); 
+    color: var(--blanco) !important; /* Mantenemos el texto blanco para no perder contraste */
+    
+    /* Apagamos el brillo del borde porque la luz ya no le da directo */
+    border-color: rgba(255, 255, 255, 0.05); 
+    
+    /* El botón se hunde físicamente hacia la navbar */
+    transform: translateY(2px) scale(0.98); 
+    
+    /* Magia del hundimiento: sombras internas (inset) para crear el hueco en el "vidrio" */
+    box-shadow: 
+        inset 0 4px 8px rgba(0, 0, 0, 0.4),  
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),  
+        0 0 0 transparent; /* Anulamos la sombra exterior del estado normal */
+}
+
+
+/* =========================================
+   SECCIÓN 1: HERO (VIDEO + DUOTONO)
+========================================= */
+.hero-section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 20px 40px;
+
+    background: url('img/wallpaper.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(76, 126, 169, 0.836), rgba(25, 63, 99, 0.74));
+    z-index: 1;
+        backdrop-filter: blur(5px);        /* 👈 opcional: desenfoca el video detrás */
+    -webkit-backdrop-filter: blur(5px);
+
+}
+
+.hero-content {
+    max-width: 900px;
+    color: var(--blanco);
+    margin-top: 50px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.hero-content h2 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #f1f1f1;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.hero-content p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+
+/* =========================================
+   SECCIÓN 2: VÍNCULOS (GLASS & 3D TILT)
+========================================= */
+.vinculos-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: var(--fondo-claro);
+    overflow: hidden;
+}
+
+.vinculos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    z-index: 1;
+}
+
+.card {
+    text-decoration: none;
+    color: var(--texto-oscuro);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+    transform-style: preserve-3d;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
+}
+
+.card-icon, .card h3, .card p, .card-btn {
+    transform: translateZ(40px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--acento);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.card p {
+    color: var(--texto-gris);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.card-btn {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--acento);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.card:hover .card-btn {
+    background: var(--acento);
+    color: var(--blanco);
+}
+
+/* =========================================
+   SECCIÓN 3: CONVICCIÓN (ESTILO EDITORIAL)
+========================================= */
+.split-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 80px 5%;
+    height: 550px; /* Alto fijo compacto */
+    position: relative;
+    overflow: hidden;
+    
+    /* Fondo Gradiente: Azul pálido a Blanco */
+    background: linear-gradient(135deg, #E8F0F8 0%, #e6eff9 50%, #ffffff 100%);
+    
+    border-top: 1px solid rgba(0,0,0,0.03);
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+/* --- CONTENEDOR DE GALERÍA (IZQUIERDA) --- */
+.gallery-container {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    border-radius: 30px; /* Bordes redondeados nítidos */
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+/* Elimina las clases .img-1, .img-2, etc. porque el JS ahora inyecta los estilos */
+
+.gallery-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Empiezan invisibles */
+}
+
+@keyframes simpleFade {
+    0% { opacity: 0; z-index: 1; }
+    2% { opacity: 1; z-index: 2; }  
+    10% { opacity: 1; z-index: 2; } 
+    12% { opacity: 0; z-index: 1; } 
+    100% { opacity: 0; z-index: 1; }
+}
+
+/* --- LADO DERECHO (CITA) --- */
+.quote-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.quote-glass-card {
+    /* Estilo Frozen Glass idéntico a la Navbar */
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 45px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    max-width: 520px;
+}
+
+.quote-text {
+    font-family: 'Montserrat', sans-serif;
+    color: #000000; /* Negro puro como pediste */
+    font-size: 1.15rem;
+    line-height: 1.7;
+    font-weight: 500;
+    margin-bottom: 25px;
+}
+
+.quote-author {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    color: #1d3f5f; /* Tu azul institucional */
+    font-weight: 800; /* Bold */
+    font-size: 0.85rem; /* Cuerpo menor */
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+/* --- EFECTO TILT PREPARACIÓN --- */
+.tilt-element {
+    transition: transform 0.2s ease-out;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 992px) {
+    .split-section {
+        flex-direction: column;
+        height: auto;
+        padding: 50px 20px;
+        gap: 30px;
+    }
+    .gallery-container {
+        width: 100%;
+        height: 300px; /* Altura fija para la foto en celulares */
+    }
+    .quote-side {
+        width: 100%;
+    }
+    .quote-glass-card {
+        padding: 30px;
+    }
+}
+
+/* --- SECCIÓN 4: FAQ (MINIMALISTA / CLEAN LINE) --- */
+.faq-minimal-section {
+    padding: 120px 20px;
+    background-color: var(--fondo-claro);
+    display: flex;
+    justify-content: center;
+}
+
+.faq-minimal-container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.faq-minimal-container h2 {
+    font-size: 2.5rem;
+    color: #1d3f5f;
+    margin-bottom: 60px;
+    text-align: left; /* Estilo editorial: título a la izquierda */
+    font-weight: 700;
+}
+
+.faq-line-item {
+    border-bottom: 1px solid #716f6ba4; /* accent line */
+    transition: all 0.3s ease;
+}
+
+summary {
+    padding: 30px 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1d3f5f;
+    transition: color 0.3s ease;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+/* El ícono cambia de un + a un - o simplemente rota */
+.faq-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #557595;
+    transition: transform 0.4s ease;
+}
+
+details[open] .faq-icon {
+    transform: rotate(45deg); /* El + se vuelve una X o cruz de cierre */
+    color: var(--texto-oscuro);
+}
+
+summary:hover {
+    color: #557595;
+}
+
+.faq-answer {
+    padding: 0 0 30px 0;
+    color: var(--texto-gris);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    max-width: 90%; /* Deja aire a la derecha */
+    animation: fadeIn 0.5s ease;
+}
+
+/* Links minimalistas */
+.faq-answer a {
+    color: #1d3f5f;
+    text-decoration: none;
+    border-bottom: 1px solid #1d3f5f;
+    padding-bottom: 2px;
+    transition: all 0.3s ease;
+}
+
+.faq-answer a:hover {
+    background-color: rgba(29, 63, 95, 0.05);
+    border-color: #557595;
+    color: #557595;
+}
+
+/* Lista de docentes minimalista */
+.docentes-minimal-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.docentes-minimal-list li {
+margin-bottom: 10px;
+}
+
+.docentes-minimal-list li::before {
+    content: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+/* =========================================
+   FOOTER: CIERRE INSTITUCIONAL
+========================================= */
+.main-footer {
+   background-color: #1d3f5f;
+    color: #ffffff;
+    padding: 80px 5% 60px 5%; /* 👈 más espacio abajo */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr; /* Distribución asimétrica moderna */
+    gap: 60px;
+}
+
+/* Identidad */
+.footer-logo {
+    height: 50px;
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1); /* Si el logo es oscuro, esto lo pone blanco */
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 300px;
+}
+
+/* Vínculos */
+.footer-links h4, .footer-contact h4 {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #a0aec0; /* Un gris azulado claro para los títulos */
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    padding-left: 5px;
+    color: #557595;
+}
+
+/* Contacto y Redes */
+.footer-contact p {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.footer-contact i {
+    margin-right: 10px;
+    color: #557595;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1); /* Efecto Glass muy sutil */
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-icon:hover {
+    background: #557595;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Barra Inferior */
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    .footer-brand p {
+        margin: 0 auto;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+
+/* =========================================
+   ADAPTACIÓN A CELULARES (RESPONSIVE)
+========================================= */
+@media (max-width: 768px) {
+    .navbar {
+        width: 95%;
+        padding: 0 15px;
+        /* En celulares ajustamos la grilla para que el logo no quede apretado */
+        grid-template-columns: 1fr auto 1fr;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.5rem; /* Aún más chico para celulares */
+        white-space: normal; /* Permitimos que se divida en celulares si es necesario */
+    }
+    
+    .nav-button-right {
+         display: flex; /* 👈 ya no se oculta */
+    }
+    
+    .parallax-quote-wrapper {
+        padding: 30px;
+    }
+    
+    blockquote {
+        font-size: 1.1rem;
+    }
+}
+
+/* --- PREPARACIÓN PARA TILT --- */
+.tilt-element {
+    transition: transform 0.2s ease-out; /* Suaviza el movimiento del mouse */
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.gallery-container {
+    /* ... (tus estilos anteriores) ... */
+    z-index: 2;
+}
+
+.quote-glass-card {
+    /* ... (tus estilos anteriores) ... */
+    z-index: 2;
+}
+/* ===== FIX FOOTER ===== */
+
+.footer-minimal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-divider {
+    width: 80%; /* 👈 ocupa casi toda la pantalla */
+    max-width: 600px; /* opcional, para que no se haga enorme en pantallas grandes */
+    height: 2px;
+    background: #557595;
+    margin: 0 auto 30px auto;
+    opacity: 0.6;
+}
+
+.arg-flag {
+    margin-bottom: 20px;
+}
+
+.arg-flag svg {
+    width: 40px;   /* tamaño de la bandera */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.inst-name {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.inst-dept {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.inst-uni {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.inst-uni a {
+    color: #ffffff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.inst-uni a:hover {
+    color: #a0c4ff;
+}
+
+/* Botón responsive */
+.btn-icon {
+    display: none;
+}
+
+/* En pantallas chicas */
+@media (max-width: 768px) {
+    .btn-text {
+        display: none; /* oculta texto */
+    }
+    .btn-icon {
+        display: inline-block; /* muestra ícono */
+        font-size: 1.2rem;
+    }
+
+    .btn-vinculos {
+        padding: 10px 14px; /* más compacto */
+    }
+}
+/* Animación blobs */
+@keyframes floatBlob1 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(60px, -40px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes floatBlob2 {
+    0%   { transform: translate(0, 0); }
+    50%  { transform: translate(-50px, 30px); }
+    100% { transform: translate(0, 0); }
+}
+#blobs-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0; /* detrás de las cards */
+}
+
+.blob-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0.5;
+    transition: background-color 2s ease;
+}
