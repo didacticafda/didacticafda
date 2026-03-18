@@ -109,8 +109,9 @@ body {
 }
 
 /* --- ÍCONOS DE LA IZQUIERDA --- */
+/* --- ÍCONOS DE LA IZQUIERDA --- */
 .nav-icons-left a {
-    color: #3e77b1; /* Un azul de la misma familia pero más brillante/luminoso */
+    color: #3e77b1; /* Mantenemos tu azul luminoso */
     font-size: 1.2rem;
     text-decoration: none;
     width: 40px;
@@ -119,14 +120,32 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    
+    /* Le damos una base muy sutil de vidrio para que el hueco se note después */
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    
     transition: all 0.3s ease;
 }
 
-.nav-icons-left a:hover {
-    background-color: #ffffff92; 
-    color: var(--texto-oscuro);
-    transform: translateY(-3px) scale(1.1); 
-    box-shadow: 0 0px 5px rgba(41, 41, 41, 0.349); /* Sombrita sutil para acompañar el volumen */
+.nav-icons-left a:hover,
+.nav-icons-left a:active {
+    /* Oscurecemos el fondo creando el efecto de sombra en el hueco */
+    background-color: rgba(0, 0, 0, 0.05); 
+    color: #1d3f5f; /* Un azul un poco más oscuro al presionar para dar contraste */
+    
+    /* El ícono se hunde físicamente (baja y se achica apenas) */
+    transform: translateY(2px) scale(0.95);
+    
+    /* Sombras internas (inset) circulares para el efecto presionado */
+    box-shadow: 
+        inset 0 3px 6px rgba(0, 0, 0, 0.15),
+        inset 0 1px 3px rgba(0, 0, 0, 0.1),
+        0 0 0 transparent;
+        
+    /* Apagamos el brillo del borde */
+    border-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Logo Centro */
@@ -158,26 +177,46 @@ body {
 }
 
 /* --- BOTÓN DE LA DERECHA (AZUL INTENSO SÓLIDO) --- */
+/* --- BOTÓN DE LA DERECHA (EFECTO VIDRIO PRESIONADO) --- */
 .btn-vinculos {
-    background-color: #396795; /* El azul intenso que elegiste */
-    color: var(--blanco) !important; /* Texto blanco para asegurar la lectura */
+    /* Mantenemos tu azul institucional pero con un toque de transparencia para el glassmorphism */
+    background-color: rgba(57, 103, 149, 0.85); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    
+    color: var(--blanco) !important;
     font-size: 0.95rem !important;
     font-weight: 600;
     padding: 10px 22px;
     border-radius: 12px;
     text-decoration: none;
-    /* Le agregamos una sombra sutil del mismo tono azul para darle volumen */
-    box-shadow: 0 0px 5px rgba(85, 117, 149, 0.4); 
-    border: 1px solid #537094; /* Borde azul para que la transición sea perfecta */
-    transition: all 0.5s ease;
+    
+    /* Sombra suave hacia afuera en estado normal y un borde claro sutil típico del vidrio */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    
+    /* Transición un poco más rápida (0.3s) para que la respuesta táctil se sienta natural */
+    transition: all 0.3s ease; 
 }
 
-.btn-vinculos:hover {
-    background-color: #ffffff92; /* warm golden accent */
-    color: var(--texto-oscuro) !important;
-    border-color: #b4c8dc;
-    transform: translateY(-2px); 
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.699); 
+/* Efecto al pasar el mouse (hover) y al hacer clic (active) */
+.btn-vinculos:hover,
+.btn-vinculos:active {
+    /* Oscurecemos ligeramente el fondo para simular profundidad */
+    background-color: rgba(46, 83, 120, 0.7); 
+    color: var(--blanco) !important; /* Mantenemos el texto blanco para no perder contraste */
+    
+    /* Apagamos el brillo del borde porque la luz ya no le da directo */
+    border-color: rgba(255, 255, 255, 0.05); 
+    
+    /* El botón se hunde físicamente hacia la navbar */
+    transform: translateY(2px) scale(0.98); 
+    
+    /* Magia del hundimiento: sombras internas (inset) para crear el hueco en el "vidrio" */
+    box-shadow: 
+        inset 0 4px 8px rgba(0, 0, 0, 0.4),  
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),  
+        0 0 0 transparent; /* Anulamos la sombra exterior del estado normal */
 }
 
 
@@ -281,36 +320,6 @@ body {
     overflow: hidden;
 }
 
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    z-index: 0;
-    opacity: 1;
-}
-
-.shape-1 {
-    width: 900px;
-    height: 500px;
-    background: #587796;
-    top: -200px;
-    left: -200px;
-    position: absolute;
-    animation: floatBlob1 2s ease-in-out infinite;
-
-}
-
-.shape-2 {
-    width: 1000px;
-    height: 200px;
-    background: rgba(63, 146, 230, 0.38);
-    bottom: -100px;
-    position: absolute;
-    animation: floatBlob1 3s ease-out infinite;
-
-
-}
-
 .vinculos-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -410,6 +419,8 @@ body {
     z-index: 2;
 }
 
+/* Elimina las clases .img-1, .img-2, etc. porque el JS ahora inyecta los estilos */
+
 .gallery-slide {
     position: absolute;
     top: 0;
@@ -418,24 +429,15 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 0;
-    animation: simpleFade 24s infinite ease-in-out;
+    opacity: 0; /* Empiezan invisibles */
 }
 
-/* Imágenes de la Galería */
-.img-1 { background-image: url('img/gallery001.jpg'); animation-delay: 0s; }
-.img-2 { background-image: url('img/gallery002.jpg'); animation-delay: 4s; }
-.img-3 { background-image: url('img/gallery003.jpg'); animation-delay: 8s; }
-.img-4 { background-image: url('img/gallery004.jpg'); animation-delay: 12s; }
-.img-5 { background-image: url('img/gallery005.jpg'); animation-delay: 16s; }
-.img-6 { background-image: url('img/gallery006.jpg'); animation-delay: 20s; }
-
 @keyframes simpleFade {
-    0% { opacity: 0; }
-    8% { opacity: 1; }  /* Aparece en 2s */
-    25% { opacity: 1; } /* Se mantiene 4s */
-    33% { opacity: 0; } /* Desaparece en 2s */
-    100% { opacity: 0; }
+    0% { opacity: 0; z-index: 1; }
+    2% { opacity: 1; z-index: 2; }  
+    10% { opacity: 1; z-index: 2; } 
+    12% { opacity: 0; z-index: 1; } 
+    100% { opacity: 0; z-index: 1; }
 }
 
 /* --- LADO DERECHO (CITA) --- */

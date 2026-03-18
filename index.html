@@ -285,30 +285,16 @@ document.addEventListener('mousemove', (e) => {
 <script>
 const galleryContainer = document.getElementById('gallery');
 
-// Array manual de imágenes
 const images = [
-  'img/gallery/gallery001.jpg',
-  'img/gallery/gallery002.jpg',
-  'img/gallery/gallery003.jpg',
-  'img/gallery/gallery004.jpg',
-  'img/gallery/gallery005.jpg',
-  'img/gallery/gallery006.jpg',
-  'img/gallery/gallery007.jpg',
-  'img/gallery/gallery008.jpg',
-  'img/gallery/gallery009.jpg',
-  'img/gallery/gallery010.jpg',
-  'img/gallery/gallery011.jpg',
-  'img/gallery/gallery012.jpg',
-  'img/gallery/gallery013.jpg',
-  'img/gallery/gallery014.jpg',
-  'img/gallery/gallery015.jpg',
-  'img/gallery/gallery016.jpg',
-  'img/gallery/gallery017.jpg',
-  'img/gallery/gallery018.jpg',
+  'img/gallery/gallery001.jpg', 'img/gallery/gallery002.jpg', 'img/gallery/gallery003.jpg',
+  'img/gallery/gallery004.jpg', 'img/gallery/gallery005.jpg', 'img/gallery/gallery006.jpg',
+  'img/gallery/gallery007.jpg', 'img/gallery/gallery008.jpg', 'img/gallery/gallery009.jpg',
+  'img/gallery/gallery010.jpg', 'img/gallery/gallery011.jpg', 'img/gallery/gallery012.jpg',
+  'img/gallery/gallery013.jpg', 'img/gallery/gallery014.jpg', 'img/gallery/gallery015.jpg',
+  'img/gallery/gallery016.jpg', 'img/gallery/gallery017.jpg', 'img/gallery/gallery018.jpg',
   'img/gallery/gallery019.jpg'
 ];
 
-// Función para mezclar el array (Fisher-Yates shuffle)
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -317,18 +303,21 @@ function shuffle(array) {
   return array;
 }
 
-// Mezclamos las imágenes
 const shuffledImages = shuffle(images);
 
-// Tiempo entre cada fade
-const delayStep = 4; // segundos
+// CONFIGURACIÓN DE TIEMPO
+const timePerImg = 5; // Segundos que dura cada imagen
+const totalTime = shuffledImages.length * timePerImg; // Tiempo total del ciclo (95s para 19 fotos)
 
-// Creamos los slides con orden aleatorio
 shuffledImages.forEach((src, index) => {
   const slide = document.createElement('div');
   slide.classList.add('gallery-slide');
   slide.style.backgroundImage = `url('${src}')`;
-  slide.style.animationDelay = `${index * delayStep}s`;
+  
+  // Aplicamos la animación y el delay calculado
+  slide.style.animation = `simpleFade ${totalTime}s infinite ease-in-out`;
+  slide.style.animationDelay = `${index * timePerImg}s`;
+  
   galleryContainer.appendChild(slide);
 });
 </script>
