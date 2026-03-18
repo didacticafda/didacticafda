@@ -92,14 +92,7 @@
     </section>
 
 <section id="conviccion" class="split-section">
-    <div class="gallery-container tilt-element">
-        <div class="gallery-slide img-1"></div>
-        <div class="gallery-slide img-2"></div>
-        <div class="gallery-slide img-3"></div>
-        <div class="gallery-slide img-4"></div>
-        <div class="gallery-slide img-5"></div>
-        <div class="gallery-slide img-6"></div>
-    </div>
+<div class="gallery-container tilt-element" id="gallery"></div>
 
     <div class="quote-side">
         <div class="quote-glass-card tilt-element">
@@ -288,6 +281,23 @@ document.addEventListener('mousemove', (e) => {
     blob.style.transform = `translate(${x * (20+i)}px, ${y * (20+i)}px)`;
   });
 });
+</script>
+<script>
+const galleryContainer = document.getElementById('gallery');
+
+// Pedimos al servidor la lista de imágenes
+fetch('gallery.php')
+  .then(response => response.json())
+  .then(images => {
+    const delayStep = 4; // segundos entre cada fade
+    images.forEach((src, index) => {
+      const slide = document.createElement('div');
+      slide.classList.add('gallery-slide');
+      slide.style.backgroundImage = `url('${src}')`;
+      slide.style.animationDelay = `${index * delayStep}s`;
+      galleryContainer.appendChild(slide);
+    });
+  });
 </script>
 </body>
 </html>
