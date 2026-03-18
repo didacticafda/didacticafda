@@ -687,6 +687,16 @@ details[open] .faq-icon {
         display: none;
     }
 
+    /* Alinear a la izquierda el contenido del Hero en celulares */
+    .hero-section {
+        justify-content: flex-start; 
+        text-align: left;
+    }
+    
+    .hero-content p {
+        text-align: left; /* Esto quita el justificado que tiene en la versión de PC */
+    }
+
     .hero-content h1 {
         font-size: 1.5rem;
         white-space: normal;
