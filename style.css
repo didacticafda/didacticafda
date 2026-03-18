@@ -185,7 +185,7 @@ body {
    SECCIÓN 1: HERO (VIDEO + DUOTONO)
 ========================================= */
 .hero-section {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -193,8 +193,8 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
-    /* Fallback por si el video no carga */
+    padding: 120px 20px 40px;
+
     background: url('img/wallpaper.jpg');
     background-attachment: fixed;
     background-position: center;
