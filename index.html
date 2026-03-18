@@ -57,9 +57,7 @@
     </section>
 
     <section id="vinculos" class="vinculos-section">
-        
-        <div class="blob shape-1"></div>
-        <div class="blob shape-2"></div>
+<div id="blobs-container"></div>
 
         <div class="vinculos-container">
             <a href="mailto:didacticafda@gmail.com" class="card" data-tilt data-tilt-glare data-tilt-max-glare="0.4" data-tilt-scale="1.05">
@@ -224,6 +222,72 @@
             el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
     });
+</script>
+<script>
+const container = document.getElementById('blobs-container');
+const colors = [
+  'rgba(116,172,223,0.3)', // azul claro
+  'rgba(46,96,145,0.7)',    // azul institucional
+  'rgba(177, 223, 250, 0.4)', // azul muy claro para contraste
+  'rgba(231, 136, 36, 0.2)',
+  'rgba(222, 74, 152, 0.3)',
+  'rgba(142, 73, 155, 0.5)',
+  'rgba(37, 150, 221, 0.4)',
+  'rgba(28, 136, 197, 0.3)',
+];
+
+const numBlobs = 15; // cantidad de burbujas
+
+for (let i = 0; i < numBlobs; i++) {
+  const blob = document.createElement('div');
+  blob.classList.add('blob-circle');
+
+  // tamaño random
+  const size = Math.floor(Math.random() * 250) + 120; // entre 80 y 330px
+  blob.style.width = `${size}px`;
+  blob.style.height = `${size}px`;
+
+  // posición inicial random
+  blob.style.top = `${Math.random() * 100}%`;
+  blob.style.left = `${Math.random() * 70}%`;
+
+  // color random
+  blob.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+  // blur random: algunos muy difusos, otros más definidos
+  const blur = Math.random() < 0.6 ? (50 + Math.random()*100) : (10 + Math.random()*20);
+  blob.style.filter = `blur(${blur}px)`;
+
+  container.appendChild(blob);
+
+  // animación flotante random
+  animateBlob(blob);
+}
+
+function animateBlob(blob) {
+  const moveX = (Math.random() - 0.8) * 500; // movimiento horizontal más visible
+  const moveY = (Math.random() - 0.5) * 920; // movimiento vertical más visible
+  const duration = 10000 + Math.random()*5000; // entre 10 y 15 segundos
+
+  blob.animate([
+    { transform: 'translate(0,0)' },
+    { transform: `translate(${moveX}px, ${moveY}px)` },
+    { transform: 'translate(0,0)' }
+  ], {
+    duration: duration,
+    iterations: Infinity,
+    easing: 'ease-in-out'
+  });
+}
+
+// reacción sutil al mouse
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth - 1.5;
+  const y = e.clientY / window.innerHeight - 0.5;
+  document.querySelectorAll('.blob-circle').forEach((blob, i) => {
+    blob.style.transform = `translate(${x * (20+i)}px, ${y * (20+i)}px)`;
+  });
+});
 </script>
 </body>
 </html>

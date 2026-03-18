@@ -3,7 +3,7 @@
 ========================================= */
 :root {
     --acento: #2e6091; /* Azul institucional */
-    --acento-hover: #2a4661;
+    --acento-hover: #74ACDF;
     --texto-oscuro: #222222;
     --texto-gris: #555555;
     --fondo-claro: #f8f9fa;
@@ -72,9 +72,9 @@ body {
 .navbar::before {
     content: "";
     position: absolute;
-    inset: -1px; /* Se expande exacto el grosor de 1px del borde */
+    inset: -2px; /* Se expande exacto el grosor de 1px del borde */
     border-radius: 20px;
-    padding: 1px; /* El grosor de la luz */
+    padding: 2px; /* El grosor de la luz */
     
     /* El gradiente de luz */
     background: conic-gradient(from var(--border-angle), rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.1) 100%);
@@ -110,7 +110,7 @@ body {
 
 /* --- ÍCONOS DE LA IZQUIERDA --- */
 .nav-icons-left a {
-    color: #3c5d7e; /* Un azul de la misma familia pero más brillante/luminoso */
+    color: #3e77b1; /* Un azul de la misma familia pero más brillante/luminoso */
     font-size: 1.2rem;
     text-decoration: none;
     width: 40px;
@@ -123,10 +123,10 @@ body {
 }
 
 .nav-icons-left a:hover {
-    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco translúcido al 50% idéntico al botón */
-    color: var(--texto-oscuro); /* El ícono se vuelve oscuro para contrastar */
+    background-color: #ffb71ca4; /* translucent gold */
+    color: var(--texto-oscuro);
     transform: translateY(-3px) scale(1.1); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombrita sutil para acompañar el volumen */
+    box-shadow: 0 0px 5px rgba(41, 41, 41, 0.349); /* Sombrita sutil para acompañar el volumen */
 }
 
 /* Logo Centro */
@@ -159,7 +159,7 @@ body {
 
 /* --- BOTÓN DE LA DERECHA (AZUL INTENSO SÓLIDO) --- */
 .btn-vinculos {
-    background-color: #3c5d7e; /* El azul intenso que elegiste */
+    background-color: #396795; /* El azul intenso que elegiste */
     color: var(--blanco) !important; /* Texto blanco para asegurar la lectura */
     font-size: 0.95rem !important;
     font-weight: 600;
@@ -167,17 +167,17 @@ body {
     border-radius: 12px;
     text-decoration: none;
     /* Le agregamos una sombra sutil del mismo tono azul para darle volumen */
-    box-shadow: 0 4px 12px rgba(85, 117, 149, 0.4); 
+    box-shadow: 0 0px 5px rgba(85, 117, 149, 0.4); 
     border: 1px solid #537094; /* Borde azul para que la transición sea perfecta */
     transition: all 0.5s ease;
 }
 
 .btn-vinculos:hover {
-    background-color: rgba(255, 255, 255, 0.5); /* Blanco translúcido al 50% */
-    color: var(--texto-oscuro) !important; 
-    border-color: rgba(255, 255, 255, 0.5); /* El borde también al 50% para que no quede duro */
+    background-color: #ffb71ca4; /* warm golden accent */
+    color: var(--texto-oscuro) !important;
+    border-color: #f6b40e;
     transform: translateY(-2px); 
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); 
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.699); 
 }
 
 
@@ -225,8 +225,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgb(36, 60, 84), rgba(60, 98, 137, 0.788));
+    background: linear-gradient(rgba(76, 126, 169, 0.836), rgba(25, 63, 99, 0.74));
     z-index: 1;
+        backdrop-filter: blur(5px);        /* 👈 opcional: desenfoca el video detrás */
+    -webkit-backdrop-filter: blur(5px);
+
 }
 
 .hero-content {
@@ -251,7 +254,7 @@ body {
 .hero-content h2 {
     font-size: 1.2rem;
     font-weight: 300;
-    color: #e0e0e0;
+    color: #f1f1f1;
     margin-bottom: 30px;
     letter-spacing: 1px;
 }
@@ -329,11 +332,11 @@ body {
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     transform-style: preserve-3d;
-    transition: background-color 1s ease;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .card:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
 }
 
@@ -525,7 +528,7 @@ body {
 }
 
 .faq-line-item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #716f6ba4; /* accent line */
     transition: all 0.3s ease;
 }
 
@@ -873,4 +876,19 @@ margin-bottom: 10px;
     0%   { transform: translate(0, 0); }
     50%  { transform: translate(-50px, 30px); }
     100% { transform: translate(0, 0); }
+}
+#blobs-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0; /* detrás de las cards */
+}
+
+.blob-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0.5;
+    transition: background-color 2s ease;
 }
