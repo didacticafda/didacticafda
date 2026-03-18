@@ -2,7 +2,7 @@
    VARIABLES Y CONFIGURACIÓN BASE
 ========================================= */
 :root {
-    --acento: #3c6389; /* Azul institucional */
+    --acento: #2e6091; /* Azul institucional */
     --acento-hover: #2a4661;
     --texto-oscuro: #222222;
     --texto-gris: #555555;
@@ -110,7 +110,7 @@ body {
 
 /* --- ÍCONOS DE LA IZQUIERDA --- */
 .nav-icons-left a {
-    color: #1d3f5f; /* Un azul de la misma familia pero más brillante/luminoso */
+    color: #3c5d7e; /* Un azul de la misma familia pero más brillante/luminoso */
     font-size: 1.2rem;
     text-decoration: none;
     width: 40px;
@@ -159,7 +159,7 @@ body {
 
 /* --- BOTÓN DE LA DERECHA (AZUL INTENSO SÓLIDO) --- */
 .btn-vinculos {
-    background-color: #557595; /* El azul intenso que elegiste */
+    background-color: #3c5d7e; /* El azul intenso que elegiste */
     color: var(--blanco) !important; /* Texto blanco para asegurar la lectura */
     font-size: 0.95rem !important;
     font-weight: 600;
@@ -168,8 +168,8 @@ body {
     text-decoration: none;
     /* Le agregamos una sombra sutil del mismo tono azul para darle volumen */
     box-shadow: 0 4px 12px rgba(85, 117, 149, 0.4); 
-    border: 2px solid #557595; /* Borde azul para que la transición sea perfecta */
-    transition: all 0.3s ease;
+    border: 1px solid #537094; /* Borde azul para que la transición sea perfecta */
+    transition: all 0.5s ease;
 }
 
 .btn-vinculos:hover {
@@ -225,7 +225,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(15, 30, 45, 0.85), rgba(60, 99, 137, 0.7));
+    background: linear-gradient(rgb(36, 60, 84), rgba(60, 98, 137, 0.788));
     z-index: 1;
 }
 
@@ -281,27 +281,27 @@ body {
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(60px);
+    filter: blur(90px);
     z-index: 0;
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .shape-1 {
     width: 900px;
-    height: 400px;
-    background: var(--acento);
-    top: -100px;
+    height: 500px;
+    background: #587796;
+    top: -200px;
     left: -200px;
     position: absolute;
-    animation: floatBlob1 3s ease-in-out infinite;
+    animation: floatBlob1 2s ease-in-out infinite;
 
 }
 
 .shape-2 {
-    width: 700px;
+    width: 1000px;
     height: 200px;
-    background: #98aed2;
-    bottom: -80px;
+    background: rgba(63, 146, 230, 0.38);
+    bottom: -100px;
     position: absolute;
     animation: floatBlob1 3s ease-out infinite;
 
@@ -329,11 +329,12 @@ body {
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     transform-style: preserve-3d;
-    transition: background-color 2s ease;
+    transition: background-color 1s ease;
 }
 
 .card:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
 }
 
 .card-icon, .card h3, .card p, .card-btn {
@@ -389,7 +390,7 @@ body {
     overflow: hidden;
     
     /* Fondo Gradiente: Azul pálido a Blanco */
-    background: linear-gradient(135deg, #f0f4f8 0%, #e6eff9 50%, #ffffff 100%);
+    background: linear-gradient(135deg, #E8F0F8 0%, #e6eff9 50%, #ffffff 100%);
     
     border-top: 1px solid rgba(0,0,0,0.03);
     border-bottom: 1px solid rgba(0,0,0,0.03);
