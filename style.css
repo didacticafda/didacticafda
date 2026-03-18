@@ -320,16 +320,26 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
 }
 
-.card-icon, .card h3, .card p, .card-btn {
-    transform: translateZ(40px);
-}
-
+/* --- Íconos de las Tarjetas --- */
 .card-icon {
     font-size: 2.5rem;
     color: var(--acento);
     margin-bottom: 15px;
     display: block;
+    transition: all 0.3s ease;
+    transform: translateZ(40px);
 }
+
+/* Efecto 3D extra en hover para todos los íconos */
+.card:hover .card-icon {
+    transform: translateZ(50px) scale(1.1);
+}
+
+/* Colores específicos para cada tarjeta al hacer hover */
+.card:nth-child(1):hover .card-icon { color: #00575F; } /* verde UNLP */
+.card:nth-child(2):hover .card-icon { color: #E78824; } /* naranja diseño industrial */
+.card:nth-child(3):hover .card-icon { color: #DE4A98; } /* rosa diseño cv */
+.card:nth-child(4):hover .card-icon { color: #8E499B; } /* violeta multimedial */
 
 .card h3 {
     margin-bottom: 10px;
