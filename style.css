@@ -659,13 +659,19 @@ details[open] .faq-icon {
         padding: 50px 20px;
         gap: 30px;
     }
+    
     .gallery-container {
+        flex: none; /* ¡Clave! Evita que el navegador colapse la caja a 0 */
         width: 100%;
         height: 300px; 
+        min-height: 300px; /* Forzamos a que tenga exactamente esta altura */
     }
+    
     .quote-side {
         width: 100%;
+        flex: none;
     }
+    
     .quote-glass-card {
         padding: 30px;
     }

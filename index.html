@@ -47,7 +47,7 @@
 
         <div class="hero-content">
             <h1>Didáctica y Prácticas de la Enseñanza B</h1>
-            <h2>Facultad de Artes | Universidad Nacional de La Plata</h2>
+            <h2>Facultad de Artes | UNLP</h2>
             
             <p>Esta cátedra propone un abordaje reflexivo y crítico del campo de la enseñanza. A partir de pensar la docencia como una práctica situada, dando cuenta de «la manera de conocer y actuar de los profesores en los diversos contextos en que se desarrolla su acción» (Gloria Edelstein, 2011), se estimula un rol participativo e investigativo de lxs estudiantes como futurxs docentes.</p>
             
@@ -233,70 +233,75 @@
     });
 </script>
 <script>
+// Animación de fondo (Blobs) optimizada para no cargar en móviles
 const container = document.getElementById('blobs-container');
-const colors = [
-  'rgba(116,172,223,0.3)', // azul claro
-  'rgba(46,96,145,0.7)',    // azul institucional
-  'rgba(177, 223, 250, 0.4)', // azul muy claro para contraste
-  'rgba(231, 136, 36, 0.2)',
-  'rgba(222, 74, 152, 0.3)',
-  'rgba(142, 73, 155, 0.1)',
-  'rgba(37, 150, 221, 0.4)',
-  'rgba(28, 136, 197, 0.3)',
-];
 
-const numBlobs = 15; // cantidad de burbujas
+// Envolvemos todo en un condicional: solo se ejecuta si la pantalla es mayor a 768px
+if (window.innerWidth > 768) {
+  const colors = [
+    'rgba(116,172,223,0.3)', // azul claro
+    'rgba(46,96,145,0.7)',    // azul institucional
+    'rgba(177, 223, 250, 0.4)', // azul muy claro para contraste
+    'rgba(231, 136, 36, 0.2)',
+    'rgba(222, 74, 152, 0.3)',
+    'rgba(142, 73, 155, 0.1)',
+    'rgba(37, 150, 221, 0.4)',
+    'rgba(28, 136, 197, 0.3)',
+  ];
 
-for (let i = 0; i < numBlobs; i++) {
-  const blob = document.createElement('div');
-  blob.classList.add('blob-circle');
+  const numBlobs = 15; // cantidad de burbujas
 
-  // tamaño random
-  const size = Math.floor(Math.random() * 250) + 120; // entre 80 y 330px
-  blob.style.width = `${size}px`;
-  blob.style.height = `${size}px`;
+  for (let i = 0; i < numBlobs; i++) {
+    const blob = document.createElement('div');
+    blob.classList.add('blob-circle');
 
-  // posición inicial random
-  blob.style.top = `${Math.random() * 100}%`;
-  blob.style.left = `${Math.random() * 70}%`;
+    // tamaño random
+    const size = Math.floor(Math.random() * 250) + 120; // entre 80 y 330px
+    blob.style.width = `${size}px`;
+    blob.style.height = `${size}px`;
 
-  // color random
-  blob.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    // posición inicial random
+    blob.style.top = `${Math.random() * 100}%`;
+    blob.style.left = `${Math.random() * 70}%`;
 
-  // blur random: algunos muy difusos, otros más definidos
-  const blur = Math.random() < 0.6 ? (50 + Math.random()*100) : (10 + Math.random()*20);
-  blob.style.filter = `blur(${blur}px)`;
+    // color random
+    blob.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-  container.appendChild(blob);
+    // blur random: algunos muy difusos, otros más definidos
+    const blur = Math.random() < 0.6 ? (50 + Math.random()*100) : (10 + Math.random()*20);
+    blob.style.filter = `blur(${blur}px)`;
 
-  // animación flotante random
-  animateBlob(blob);
-}
+    container.appendChild(blob);
 
-function animateBlob(blob) {
-  const moveX = (Math.random() - 0.8) * 500; // movimiento horizontal más visible
-  const moveY = (Math.random() - 0.5) * 920; // movimiento vertical más visible
-  const duration = 10000 + Math.random()*5000; // entre 10 y 15 segundos
+    // animación flotante random
+    animateBlob(blob);
+  }
 
-  blob.animate([
-    { transform: 'translate(0,0)' },
-    { transform: `translate(${moveX}px, ${moveY}px)` },
-    { transform: 'translate(0,0)' }
-  ], {
-    duration: duration,
-    iterations: Infinity,
-    easing: 'ease-in-out'
+  function animateBlob(blob) {
+    const moveX = (Math.random() - 0.8) * 500; // movimiento horizontal más visible
+    const moveY = (Math.random() - 0.5) * 920; // movimiento vertical más visible
+    const duration = 10000 + Math.random()*5000; // entre 10 y 15 segundos
+
+    blob.animate([
+      { transform: 'translate(0,0)' },
+      { transform: `translate(${moveX}px, ${moveY}px)` },
+      { transform: 'translate(0,0)' }
+    ], {
+      duration: duration,
+      iterations: Infinity,
+      easing: 'ease-in-out'
+    });
+  }
+
+  // reacción sutil al mouse
+  document.addEventListener('mousemove', (e) => {
+    const x = e.clientX / window.innerWidth - 1.5;
+    const y = e.clientY / window.innerHeight - 0.5;
+    document.querySelectorAll('.blob-circle').forEach((blob, i) => {
+      blob.style.transform = `translate(${x * (20+i)}px, ${y * (20+i)}px)`;
+    });
   });
 }
-
-// reacción sutil al mouse
-document.addEventListener('mousemove', (e) => {
-  const x = e.clientX / window.innerWidth - 1.5;
-  const y = e.clientY / window.innerHeight - 0.5;
-  document.querySelectorAll('.blob-circle').forEach((blob, i) => {
-    blob.style.transform = `translate(${x * (20+i)}px, ${y * (20+i)}px)`;
-  });
-});
 </script>
 <script>
 const galleryContainer = document.getElementById('gallery');
