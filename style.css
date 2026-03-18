@@ -123,7 +123,7 @@ body {
 }
 
 .nav-icons-left a:hover {
-    background-color: #ffb71ca4; /* translucent gold */
+    background-color: #ffffff92; 
     color: var(--texto-oscuro);
     transform: translateY(-3px) scale(1.1); 
     box-shadow: 0 0px 5px rgba(41, 41, 41, 0.349); /* Sombrita sutil para acompañar el volumen */
@@ -173,9 +173,9 @@ body {
 }
 
 .btn-vinculos:hover {
-    background-color: #ffb71ca4; /* warm golden accent */
+    background-color: #ffffff92; /* warm golden accent */
     color: var(--texto-oscuro) !important;
-    border-color: #f6b40e;
+    border-color: #b4c8dc;
     transform: translateY(-2px); 
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.699); 
 }
