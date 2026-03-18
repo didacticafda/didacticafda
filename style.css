@@ -640,6 +640,10 @@ summary:hover {
 }
 
 @media (max-width: 768px) {
+    .video-wrapper {
+        display: none;
+    }
+    
     .navbar {
         width: 95%;
         padding: 0 15px;

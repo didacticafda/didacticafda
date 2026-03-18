@@ -38,7 +38,8 @@
         
 <div class="video-wrapper">
             <video autoplay loop muted playsinline class="bg-video">
-                <source src="img/bg-video.mp4" type="video/mp4">
+                <!-- El atributo media evita que el celular siquiera intente descargar el video -->
+                <source src="img/bg-video.mp4" type="video/mp4" media="(min-width: 769px)">
             </video>
         </div>
         
