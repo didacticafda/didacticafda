@@ -2,12 +2,114 @@
    VARIABLES Y CONFIGURACIÓN BASE
 ========================================= */
 :root {
-    --acento: #2e6091; /* Azul institucional */
+    /* Paleta Light Mode (Por defecto) */
+    --acento: #2e6091; 
     --acento-hover: #74ACDF;
     --texto-oscuro: #222222;
     --texto-gris: #555555;
     --fondo-claro: #f8f9fa;
     --blanco: #ffffff;
+--color-halo: white;
+    /* Glassmorphism y Estructuras Light */
+    --glass-nav-bg: rgba(255, 255, 255, 0.384);
+    --glass-nav-hover: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --card-bg: rgba(255, 255, 255, 0.3);
+    --card-hover: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(255, 255, 255, 0.8);
+    --split-bg: linear-gradient(135deg, #E8F0F8 0%, #e6eff9 50%, #ffffff 100%);
+    --quote-bg: rgba(255, 255, 255, 0.45);
+    --quote-text: #000000;
+    --faq-title-color: #1d3f5f;
+    --faq-hover-bg: rgba(46, 96, 145, 0.03);
+}
+
+/* Detección automática del tema del sistema */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Paleta Dark Mode */
+        --acento: #74ACDF; /* Azul más vibrante para asegurar contraste */
+        --acento-hover: #a0c4ff;
+        --texto-oscuro: #e4e7eb; /* Invertimos el texto principal a claro */
+        --texto-gris: #aab4be;
+        --fondo-claro: #101418; /* Fondo general oscuro azulado */
+        --blanco: #1a2026; /* Superficies sólidas en modo oscuro */
+        --color-halo: rgba(116, 172, 223, 0.3); /* Un azul claro sutil (tu acento), o usa rgba(255,255,255, 0.2) para un gris suave */
+        /* Glassmorphism y Estructuras Dark */
+        --glass-nav-bg: rgba(16, 20, 24, 0.70);
+        --glass-nav-hover: rgba(26, 32, 38, 0.95);
+        --glass-border: rgba(255, 255, 255, 0.277);
+        --card-bg: rgba(26, 32, 38, 0.4);
+        --card-hover: rgba(36, 44, 52, 0.8);
+        --card-border: rgba(255, 255, 255, 0.1);
+        --split-bg: linear-gradient(135deg, #0a0d10 0%, #101418 50%, #151a1f 100%);
+        --quote-bg: rgba(26, 32, 38, 0.5);
+        --quote-text: #e4e7eb;
+        --faq-title-color: #74ACDF;
+        --faq-hover-bg: rgba(116, 172, 223, 0.08);
+    }
+    /* =========================================
+       AJUSTES ESPECÍFICOS NAVBAR - DARK MODE
+    ========================================= */
+    
+    /* 1) Navbar: Ajuste de Glassmorphism (Textura y sombra) */
+    .navbar {
+        /* Fondo más oscuro y translúcido */
+        background: rgba(12, 16, 20, 0.45); 
+        /* Sombra oscura y profunda para que el "vidrio" resalte contra el fondo de la web */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); 
+    }
+
+    /* 3 y 4) Botón de Vínculos (Derecha) */
+    .nav-button-right {
+        /* Color de texto/icono casi blanco (Off-white) */
+        color: #e8eaed; 
+        /* Borde muy sutil, casi transparente */
+        border-color: rgba(255, 255, 255, 0.06); 
+    }
+    
+    /* Aseguramos que el interior del botón herede el color off-white */
+    .nav-button-right i,
+    .nav-button-right .btn-text,
+    .nav-button-right .btn-icon {
+        color: #e8eaed; 
+    }
+
+/* 5 y 6) Íconos de la izquierda: Contenedor oscuro, ícono azul */
+    .nav-icons-left a {
+        background-color: var(--glass-nav-bg) !important; /* Fondo idéntico a la navbar */
+        border: 1px solid #375169 !important; /* Borde idéntico a la navbar */
+        color: #4c89c2 !important; /* Mantiene tu azul original */
+    }
+
+    /* Efecto hover: se ilumina un poquito el fondo y el azul */
+    .nav-icons-left a:hover,
+    .nav-icons-left a:active {
+        background-color: var(--glass-nav-hover) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+        color: var(--acento-hover) !important;
+    }
+    /* =========================================
+       AJUSTES HERO (VIDEO) - DARK MODE
+    ========================================= */
+    
+    /* Oscurecer fuertemente la capa superpuesta sobre el video */
+    .hero-overlay {
+        /* Usamos un gradiente casi negro con mucha opacidad (0.85 y 0.95) */
+        background: linear-gradient(rgba(24, 42, 60, 0.85), rgba(6, 10, 14, 0.95)) !important;
+    }
+
+    /* Ajustar los textos para que sean casi blancos y resalten bien */
+    .hero-content,
+    .hero-content h1,
+    .hero-content p {
+        color: #d1d1d1 !important; 
+    }
+
+    /* El subtítulo un tono apenas más gris para mantener la jerarquía de lectura */
+    .hero-content h2 {
+        color: #cfd4d9 !important; 
+    }
 }
 
 * {
@@ -24,6 +126,8 @@ html {
 body {
     background-color: var(--fondo-claro);
     color: var(--texto-oscuro);
+    /* Transición suave si el usuario cambia el tema mientras navega */
+    transition: background-color 0.4s ease, color 0.4s ease; 
 }
 
 /* =========================================
@@ -44,10 +148,10 @@ body {
     max-width: 1200px;
     height: 75px;
     
-    background: rgba(255, 255, 255, 0.384);
+    background: var(--glass-nav-bg);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
     
     display: grid;
@@ -62,7 +166,7 @@ body {
 .navbar:hover {
     border-color: transparent;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--glass-nav-hover);
 }
 
 .navbar::before {
@@ -71,7 +175,9 @@ body {
     inset: -2px; 
     border-radius: 20px;
     padding: 2px; 
-    background: conic-gradient(from var(--border-angle), rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.1) 100%);
+    /* El gradiente va de transparente, al color de tu variable en el medio, y vuelve a transparente */
+    background: conic-gradient(from var(--border-angle), transparent 15%, var(--color-halo) 50%, transparent 85%);
+    /* La máscara vuelve a ser blanca para mantener la forma del borde hueco */
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -303,10 +409,10 @@ body {
 .card {
     text-decoration: none;
     color: var(--texto-oscuro);
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--card-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--card-border);
     border-radius: 20px;
     padding: 40px 30px;
     text-align: center;
@@ -316,7 +422,7 @@ body {
 }
 
 .card:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--card-hover);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
 }
 
@@ -372,19 +478,7 @@ body {
 /* =========================================
    SECCIÓN 3: CONVICCIÓN (ESTILO EDITORIAL)
 ========================================= */
-.split-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 60px;
-    padding: 80px 5%;
-    height: 550px; 
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #E8F0F8 0%, #e6eff9 50%, #ffffff 100%);
-    border-top: 1px solid rgba(0,0,0,0.03);
-    border-bottom: 1px solid rgba(0,0,0,0.03);
-}
+
 
 .gallery-container {
     flex: 1;
@@ -422,32 +516,47 @@ body {
     align-items: center;
     z-index: 2;
 }
+.split-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 80px 5%;
+    height: 550px; 
+    position: relative;
+    overflow: hidden;
+    background: var(--split-bg);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
 
 .quote-glass-card {
-    background: rgba(255, 255, 255, 0.45);
+    background: var(--quote-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 45px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     text-align: center;
     max-width: 520px;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
 .quote-text {
     font-family: 'Montserrat', sans-serif;
-    color: #000000; 
+    color: var(--quote-text); 
     font-size: 1.15rem;
     line-height: 1.7;
     font-weight: 500;
     margin-bottom: 25px;
+    transition: color 0.4s ease;
 }
 
 .quote-author {
     display: block;
     font-family: 'Montserrat', sans-serif;
-    color: #1d3f5f; 
+    color: var(--faq-title-color); 
     font-weight: 800; 
     font-size: 0.85rem; 
     letter-spacing: 2.5px;
@@ -474,13 +583,7 @@ body {
     width: 100%;
 }
 
-.faq-minimal-container h2 {
-    font-size: 2.5rem;
-    color: #1d3f5f;
-    margin-bottom: 50px;
-    text-align: left; 
-    font-weight: 700;
-}
+
 
 /* --- Cada fila de pregunta --- */
 .faq-line-item {
@@ -491,16 +594,25 @@ body {
     border-radius: 0 8px 8px 0; /* Bordes suaves a la derecha */
 }
 
+.faq-minimal-container h2 {
+    font-size: 2.5rem;
+    color: var(--faq-title-color);
+    margin-bottom: 50px;
+    text-align: left; 
+    font-weight: 700;
+    transition: color 0.4s ease;
+}
+
 /* Efecto Hover y Activo para la fila completa */
 .faq-line-item:hover,
 details[open].faq-line-item {
-    background-color: rgba(46, 96, 145, 0.03); /* Fondo ligerísimamente azul */
-    border-left-color: #396795; /* Se enciende la barra izquierda */
+    background-color: var(--faq-hover-bg); 
+    border-left-color: var(--acento); 
 }
 
 /* --- Título de la pregunta --- */
 summary {
-    padding: 25px 20px; /* Añadimos padding lateral para separar de la barra izquierda */
+    padding: 25px 20px; 
     list-style: none;
     display: flex;
     justify-content: space-between;
@@ -508,10 +620,9 @@ summary {
     cursor: pointer;
     font-size: 1.2rem;
     font-weight: 600;
-    color: #1d3f5f;
+    color: var(--faq-title-color);
     transition: color 0.3s ease;
 }
-
 summary::-webkit-details-marker { display: none; }
 
 /* Efecto activo del título */
@@ -730,12 +841,12 @@ details[open] .faq-icon {
         transition: all 0.2s ease-out; 
     }
     
-    .card:active {
-        background: rgba(255, 255, 255, 0.15); 
+.card:active {
+        background: var(--card-bg); 
         transform: scale(0.96); 
         box-shadow: 
             inset 0 4px 15px rgba(0, 0, 0, 0.08), 
             0 0 0 transparent; 
-        border-color: rgba(255, 255, 255, 0.1); 
+        border-color: var(--glass-border); 
     }
 }

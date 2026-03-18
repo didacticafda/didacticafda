@@ -20,8 +20,11 @@
         </div>
         
         <!-- 2. Logo en el centro -->
-        <div class="nav-logo">
-            <img src="img/logod.svg" alt="Logo Didáctica" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+<div class="nav-logo">
+            <picture>
+                <source srcset="img/logodark.svg" media="(prefers-color-scheme: dark)">
+                <img src="img/logod.svg" alt="Logo Didáctica" onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='block';">
+            </picture>
             <span style="display:none; font-weight: 600; color: var(--acento);">Didáctica B</span>
         </div>
         
