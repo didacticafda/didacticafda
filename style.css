@@ -715,7 +715,7 @@ details[open] .faq-icon {
     align-items: center;
     text-align: center;
     /* Una línea separadora muy sutil arriba para despegarlo de las FAQ */
-    border-top: 1px solid rgba(85, 117, 149, 0.1); 
+    border-top: 1px solid rgba(255, 255, 255, 0); 
 }
 
 .memoria-container {
