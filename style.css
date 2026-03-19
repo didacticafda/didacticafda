@@ -89,6 +89,16 @@
     .hero-content h2 {
         color: #cfd4d9 !important; 
     }
+    .faq-answer a {
+        color: #a0c4ff !important; /* Un celeste claro para que resalte en el fondo oscuro */
+        border-bottom-color: #a0c4ff !important;
+    }
+
+    .faq-answer a:hover {
+        color: #ffffff !important; /* Blanco al pasar el mouse */
+        border-bottom-color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 
 * {
