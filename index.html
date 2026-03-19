@@ -242,7 +242,7 @@
         'rgba(28, 136, 197, 0.3)',
       ];
 
-      const numBlobs = 15; 
+      const numBlobs = 35; 
 
       for (let i = 0; i < numBlobs; i++) {
         const blob = document.createElement('div');
@@ -257,7 +257,7 @@
 
         blob.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
-        const blur = Math.random() < 0.6 ? (50 + Math.random()*100) : (10 + Math.random()*20);
+        const blur = Math.random() < 0.5 ? (50 + Math.random()*100) : (10 + Math.random()*20);
         blob.style.filter = `blur(${blur}px)`;
 
         container.appendChild(blob);
