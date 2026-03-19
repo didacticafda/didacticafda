@@ -8,8 +8,7 @@
     --texto-gris: #555555;
     --fondo-claro: #f8f9fa;
     --blanco: #ffffff;
-    --color-halo: white;
-    
+    --color-halo: #91a6b1;
     --glass-nav-bg: rgba(255, 255, 255, 0.384);
     --glass-nav-hover: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.4);
@@ -31,8 +30,7 @@
         --texto-gris: #aab4be;
         --fondo-claro: #101418; 
         --blanco: #1a2026; 
-        --color-halo: rgba(116, 172, 223, 0.3); 
-        
+        --color-halo: #74ACDF;
         --glass-nav-bg: rgba(16, 20, 24, 0.70);
         --glass-nav-hover: rgba(26, 32, 38, 0.95);
         --glass-border: rgba(152, 152, 152, 0.284);
@@ -161,12 +159,16 @@ body {
     content: "";
     position: absolute;
     inset: -2px; 
-    border-radius: 20px;
-    padding: 2px; 
+    border-radius: 20px; /* Mantiene la misma curvatura del menú */
+    padding: 2px; /* Este es el grosor del rayo de luz */
+    background: conic-gradient(from var(--border-angle), transparent 15%, var(--color-halo) 50%, transparent 85%);
+    
+    /* Sistema de máscaras corregido para todos los navegadores */
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); /* <-- Agregamos esta línea */
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    
     z-index: -1;
     opacity: 0; 
     transition: opacity 0.3s ease;
