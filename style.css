@@ -705,6 +705,57 @@ details[open] .faq-icon {
 }
 
 /* =========================================
+   SECCIÓN CONMEMORATIVA (MEMORIA)
+========================================= */
+.memoria-section {
+    padding: 60px 20px; /* Le da una altura similar a un footer */
+    background-color: var(--fondo-claro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Una línea separadora muy sutil arriba para despegarlo de las FAQ */
+    border-top: 1px solid rgba(85, 117, 149, 0.1); 
+}
+
+.memoria-container {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Separación entre el banner y el texto */
+}
+
+.memoria-banner {
+    width: 100%;
+    max-width: 250px; /* Límite máximo establecido */
+    height: auto;     /* Ajuste proporcional para celulares */
+    opacity: 0.9;     /* Un poquito de transparencia para que no sea tan "duro" */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.memoria-banner:hover {
+    opacity: 1;
+    transform: scale(1.02); /* Un brevísimo efecto al pasar el mouse */
+}
+
+.memoria-text {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--texto-oscuro);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    letter-spacing: 0.5px; /* Separa apenas las letras para dar tono institucional/solemne */
+    margin: 0;
+}
+
+.memoria-text strong {
+    font-weight: 600;
+    color: var(--acento); /* Usa el azul/celeste de tu paleta para la primera frase */
+    font-size: 1.2rem;
+}
+
+/* =========================================
    ADAPTACIÓN RESPONSIVE (MÓVIL Y TABLET)
 ========================================= */
 @media (max-width: 992px) {
