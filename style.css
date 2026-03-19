@@ -2,15 +2,14 @@
    VARIABLES Y CONFIGURACIÓN BASE
 ========================================= */
 :root {
-    /* Paleta Light Mode (Por defecto) */
     --acento: #2e6091; 
     --acento-hover: #74ACDF;
     --texto-oscuro: #222222;
     --texto-gris: #555555;
     --fondo-claro: #f8f9fa;
     --blanco: #ffffff;
---color-halo: white;
-    /* Glassmorphism y Estructuras Light */
+    --color-halo: white;
+    
     --glass-nav-bg: rgba(255, 255, 255, 0.384);
     --glass-nav-hover: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.4);
@@ -24,18 +23,16 @@
     --faq-hover-bg: rgba(46, 96, 145, 0.03);
 }
 
-/* Detección automática del tema del sistema */
 @media (prefers-color-scheme: dark) {
     :root {
-        /* Paleta Dark Mode */
-        --acento: #74ACDF; /* Azul más vibrante para asegurar contraste */
+        --acento: #74ACDF; 
         --acento-hover: #a0c4ff;
-        --texto-oscuro: #e4e7eb; /* Invertimos el texto principal a claro */
+        --texto-oscuro: #e4e7eb; 
         --texto-gris: #aab4be;
-        --fondo-claro: #101418; /* Fondo general oscuro azulado */
-        --blanco: #1a2026; /* Superficies sólidas en modo oscuro */
-        --color-halo: rgba(116, 172, 223, 0.3); /* Un azul claro sutil (tu acento), o usa rgba(255,255,255, 0.2) para un gris suave */
-        /* Glassmorphism y Estructuras Dark */
+        --fondo-claro: #101418; 
+        --blanco: #1a2026; 
+        --color-halo: rgba(116, 172, 223, 0.3); 
+        
         --glass-nav-bg: rgba(16, 20, 24, 0.70);
         --glass-nav-hover: rgba(26, 32, 38, 0.95);
         --glass-border: rgba(152, 152, 152, 0.284);
@@ -48,65 +45,47 @@
         --faq-title-color: #74ACDF;
         --faq-hover-bg: rgba(116, 172, 223, 0.08);
     }
-    /* =========================================
-       AJUSTES ESPECÍFICOS NAVBAR - DARK MODE
-    ========================================= */
     
-    /* 1) Navbar: Ajuste de Glassmorphism (Textura y sombra) */
     .navbar {
-        /* Fondo más oscuro y translúcido */
         background: rgba(12, 16, 20, 0.45); 
-        /* Sombra oscura y profunda para que el "vidrio" resalte contra el fondo de la web */
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); 
     }
 
-    /* 3 y 4) Botón de Vínculos (Derecha) */
     .nav-button-right {
-        /* Color de texto/icono casi blanco (Off-white) */
         color: #e8eaed; 
-        /* Borde muy sutil, casi transparente */
         border-color: rgba(255, 255, 255, 0.06); 
     }
     
-    /* Aseguramos que el interior del botón herede el color off-white */
     .nav-button-right i,
     .nav-button-right .btn-text,
     .nav-button-right .btn-icon {
         color: #e8eaed; 
     }
 
-/* 5 y 6) Íconos de la izquierda: Contenedor oscuro, ícono azul */
     .nav-icons-left a {
-        background-color: var(--glass-nav-bg) !important; /* Fondo idéntico a la navbar */
-        border: 1px solid #375169 !important; /* Borde idéntico a la navbar */
-        color: #4c89c2 !important; /* Mantiene tu azul original */
+        background-color: var(--glass-nav-bg) !important; 
+        border: 1px solid #375169 !important; 
+        color: #4c89c2 !important; 
     }
 
-    /* Efecto hover: se ilumina un poquito el fondo y el azul */
     .nav-icons-left a:hover,
     .nav-icons-left a:active {
         background-color: var(--glass-nav-hover) !important;
         border-color: rgba(255, 255, 255, 0.15) !important;
         color: var(--acento-hover) !important;
     }
-    /* =========================================
-       AJUSTES HERO (VIDEO) - DARK MODE
-    ========================================= */
     
-    /* Oscurecer fuertemente la capa superpuesta sobre el video */
+    /* MODIFICADO: Redujimos la opacidad para que se vean las blobs en Dark Mode */
     .hero-overlay {
-        /* Usamos un gradiente casi negro con mucha opacidad (0.85 y 0.95) */
-        background: linear-gradient(rgba(24, 42, 60, 0.85), rgba(6, 10, 14, 0.95)) !important;
+        background: linear-gradient(rgba(24, 42, 60, 0.35), rgba(6, 10, 14, 0.45)) !important;
     }
 
-    /* Ajustar los textos para que sean casi blancos y resalten bien */
     .hero-content,
     .hero-content h1,
     .hero-content p {
         color: #d1d1d1 !important; 
     }
 
-    /* El subtítulo un tono apenas más gris para mantener la jerarquía de lectura */
     .hero-content h2 {
         color: #cfd4d9 !important; 
     }
@@ -126,7 +105,6 @@ html {
 body {
     background-color: var(--fondo-claro);
     color: var(--texto-oscuro);
-    /* Transición suave si el usuario cambia el tema mientras navega */
     transition: background-color 0.4s ease, color 0.4s ease; 
 }
 
@@ -175,9 +153,7 @@ body {
     inset: -2px; 
     border-radius: 20px;
     padding: 2px; 
-    /* El gradiente va de transparente, al color de tu variable en el medio, y vuelve a transparente */
     background: conic-gradient(from var(--border-angle), transparent 15%, var(--color-halo) 50%, transparent 85%);
-    /* La máscara vuelve a ser blanca para mantener la forma del borde hueco */
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -196,7 +172,6 @@ body {
     100% { --border-angle: 1turn; }
 }
 
-/* --- ÍCONOS DE LA IZQUIERDA --- */
 .nav-icons-left {
     display: flex;
     justify-content: flex-start;
@@ -232,7 +207,6 @@ body {
     border-color: rgba(0, 0, 0, 0.05);
 }
 
-/* --- LOGO CENTRO --- */
 .nav-logo {
     display: flex;
     justify-content: center;
@@ -250,7 +224,6 @@ body {
     filter: drop-shadow(0 8px 12px rgb(252, 253, 255)); 
 }
 
-/* --- BOTÓN DE LA DERECHA (EFECTO VIDRIO PRESIONADO) --- */
 .nav-button-right {
     display: flex;
     justify-content: flex-end;
@@ -285,52 +258,55 @@ body {
 }
 
 /* =========================================
-   SECCIÓN 1: HERO (VIDEO + DUOTONO)
+   WRAPPER COMPARTIDO (HERO + VINCULOS)
+========================================= */
+.hero-vinculos-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--fondo-claro);
+}
+
+#blobs-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0; 
+}
+
+.blob-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0.5;
+    transition: background-color 2s ease;
+}
+
+/* =========================================
+   SECCIÓN 1: HERO
 ========================================= */
 .hero-section {
     min-height: 100vh;
     width: 100%;
     position: relative;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 120px 20px 40px;
-    background: url('img/wallpaper.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: transparent; /* Transparente para ver las blobs */
 }
 
-.video-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-}
-
+/* MODIFICADO: Redujimos la opacidad para que se vean las blobs a través */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(76, 126, 169, 0.836), rgba(25, 63, 99, 0.74));
+    background: linear-gradient(rgba(18, 126, 220, 0.346), rgba(11, 59, 103, 0.411));
     z-index: 1;
-    backdrop-filter: blur(5px);        
-    -webkit-backdrop-filter: blur(5px);
 }
 
 .hero-content {
@@ -368,7 +344,7 @@ body {
 }
 
 /* =========================================
-   SECCIÓN 2: VÍNCULOS (GLASS & CARDS)
+   SECCIÓN 2: VÍNCULOS
 ========================================= */
 .vinculos-section {
     min-height: 100vh;
@@ -377,24 +353,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: var(--fondo-claro);
-    overflow: hidden;
-}
-
-#blobs-container {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0; 
-}
-
-.blob-circle {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    will-change: transform;
-    opacity: 0.5;
-    transition: background-color 2s ease;
+    background: transparent; /* Transparente para ver las blobs */
 }
 
 .vinculos-container {
@@ -426,7 +385,6 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.253);
 }
 
-/* --- Íconos de las Tarjetas --- */
 .card-icon {
     font-size: 2.5rem;
     color: var(--acento);
@@ -436,16 +394,14 @@ body {
     transform: translateZ(40px);
 }
 
-/* Efecto 3D extra en hover para todos los íconos */
 .card:hover .card-icon {
     transform: translateZ(50px) scale(1.1);
 }
 
-/* Colores específicos para cada tarjeta al hacer hover */
-.card:nth-child(1):hover .card-icon { color: #00575F; } /* verde UNLP */
-.card:nth-child(2):hover .card-icon { color: #E78824; } /* naranja diseño industrial */
-.card:nth-child(3):hover .card-icon { color: #DE4A98; } /* rosa diseño cv */
-.card:nth-child(4):hover .card-icon { color: #8E499B; } /* violeta multimedial */
+.card:nth-child(1):hover .card-icon { color: #00575F; } 
+.card:nth-child(2):hover .card-icon { color: #E78824; } 
+.card:nth-child(3):hover .card-icon { color: #DE4A98; } 
+.card:nth-child(4):hover .card-icon { color: #8E499B; } 
 
 .card h3 {
     margin-bottom: 10px;
@@ -476,10 +432,8 @@ body {
 }
 
 /* =========================================
-   SECCIÓN 3: CONVICCIÓN (ESTILO EDITORIAL)
+   SECCIÓN 3: CONVICCIÓN
 ========================================= */
-
-
 .gallery-container {
     flex: 1;
     height: 100%;
@@ -568,6 +522,7 @@ body {
     transform-style: preserve-3d;
     will-change: transform;
 }
+
 /* =========================================
    SECCIÓN 4: FAQ (MINIMALISTA)
 ========================================= */
@@ -583,15 +538,12 @@ body {
     width: 100%;
 }
 
-
-
-/* --- Cada fila de pregunta --- */
 .faq-line-item {
     border-bottom: 1px solid rgba(85, 117, 149, 0.2); 
-    border-left: 3px solid transparent; /* Línea invisible lista para activarse */
+    border-left: 3px solid transparent; 
     background-color: transparent;
     transition: all 0.3s ease;
-    border-radius: 0 8px 8px 0; /* Bordes suaves a la derecha */
+    border-radius: 0 8px 8px 0; 
 }
 
 .faq-minimal-container h2 {
@@ -603,14 +555,12 @@ body {
     transition: color 0.4s ease;
 }
 
-/* Efecto Hover y Activo para la fila completa */
 .faq-line-item:hover,
 details[open].faq-line-item {
     background-color: var(--faq-hover-bg); 
     border-left-color: var(--acento); 
 }
 
-/* --- Título de la pregunta --- */
 summary {
     padding: 25px 20px; 
     list-style: none;
@@ -625,12 +575,10 @@ summary {
 }
 summary::-webkit-details-marker { display: none; }
 
-/* Efecto activo del título */
 details[open] summary {
     color: var(--acento-hover);
 }
 
-/* --- Ícono cruz/plus --- */
 .faq-icon {
     width: 30px;
     height: 30px;
@@ -646,15 +594,12 @@ details[open] .faq-icon {
     color: var(--acento-hover);
 }
 
-/* --- Texto de Respuesta --- */
 .faq-answer {
-    padding: 0 20px 30px 20px; /* Alineado con el título */
+    padding: 0 20px 30px 20px; 
     color: var(--texto-gris);
     line-height: 1.8;
     font-size: 1.05rem;
     max-width: 95%; 
-    
-    /* Configuración para la nueva animación */
     opacity: 0;
     transform: translateY(-10px);
     animation: slideDownFade 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
@@ -685,7 +630,6 @@ details[open] .faq-icon {
     margin-bottom: 8px;
 }
 
-/* --- Nueva Animación de Caída Suave --- */
 @keyframes slideDownFade {
     to { 
         opacity: 1; 
@@ -772,10 +716,10 @@ details[open] .faq-icon {
     }
     
     .gallery-container {
-        flex: none; /* ¡Clave! Evita que el navegador colapse la caja a 0 */
+        flex: none; 
         width: 100%;
         height: 300px; 
-        min-height: 300px; /* Forzamos a que tenga exactamente esta altura */
+        min-height: 300px; 
     }
     
     .quote-side {
@@ -789,29 +733,23 @@ details[open] .faq-icon {
 }
 
 @media (max-width: 768px) {
-    .video-wrapper {
-        display: none;
-    }
-
     .navbar {
         width: 95%;
         padding: 0 15px;
         grid-template-columns: 1fr auto 1fr;
     }
     
-    /* Ocultar todos los íconos de la izquierda excepto el primero (FAQ) en celulares */
     .nav-icons-left a:not(:first-child) {
         display: none;
     }
 
-    /* Alinear a la izquierda el contenido del Hero en celulares */
     .hero-section {
         justify-content: flex-start; 
         text-align: left;
     }
     
     .hero-content p {
-        text-align: left; /* Esto quita el justificado que tiene en la versión de PC */
+        text-align: left; 
     }
 
     .hero-content h1 {
@@ -836,12 +774,11 @@ details[open] .faq-icon {
         padding: 10px 14px; 
     }
 
-    /* Efecto táctil de "panel presionado" para las tarjetas en celulares */
     .card {
         transition: all 0.2s ease-out; 
     }
     
-.card:active {
+    .card:active {
         background: var(--card-bg); 
         transform: scale(0.96); 
         box-shadow: 
