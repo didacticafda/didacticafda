@@ -49,6 +49,19 @@
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9); 
     }
 
+    /* Suavizamos el halo de luz de la navbar al hacer hover */
+    .navbar::before {
+        padding: 1px !important; /* Afina el grosor del borde (el original es de 2px) */
+        
+        /* Cambiamos el color a un azul más profundo y acortamos el haz de luz */
+        background: conic-gradient(
+            from var(--border-angle), 
+            transparent 30%, 
+            rgba(46, 96, 145, 0.8) 50%, 
+            transparent 70%
+        ) !important;
+    }
+
     .nav-button-right {
         color: #e8eaed; 
         border-color: rgba(255, 255, 255, 0.06); 
