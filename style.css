@@ -472,6 +472,64 @@ body {
     color: var(--blanco);
 }
 
+/* --- TAG NUEVO (Esquina de la Card) --- */
+.card {
+    position: relative; 
+}
+
+.tag-nuevo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #63ff4b; 
+    color: #000000; 
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 247, 255, 0); 
+    z-index: 5;
+}
+
+/* --- ANIMACIÓN DE BORDE RECORRIENDO PARA CARD DESTACADA --- */
+.card-halo-verde {
+    position: relative;
+    border-color: transparent !important; /* Ocultamos el borde fijo original */
+}
+
+.card-halo-verde::before {
+    content: "";
+    position: absolute;
+    inset: -2px; /* Se expande ligeramente para cubrir el borde */
+    border-radius: inherit; /* Hereda las esquinas redondeadas de la card */
+    padding: 2px; /* Este es el grosor de la línea verde que viaja */
+    
+    /* El rayo verde flúo que gira */
+    background: conic-gradient(
+from var(--border-angle), 
+        transparent 10%, 
+        var(--acento) 45%, /* Azul institucional */
+        #2ba615dc 20%, /* Verde flúo en la punta */
+        transparent 80%
+    );
+    
+    /* Máscara para recortar el interior y que solo se vea la línea del borde */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    z-index: -1;
+    pointer-events: none;
+    
+    /* Usamos la animación de rotación que ya tenés creada para tu navbar */
+    animation: borderRotate 3s linear infinite;
+}
+
+
+
 /* =========================================
    SECCIÓN 3: CONVICCIÓN
 ========================================= */
