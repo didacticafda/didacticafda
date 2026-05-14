@@ -87,13 +87,30 @@
                     <p>Colección de materiales variados sugeridos por la cátedra.</p>
                     <span class="card-btn"><i class="fa-solid fa-arrow-right"></i></span>
                 </a>
-                <a href="https://forms.gle/G7AQKbmLsvTo9phG9" target="_blank" class="card card-halo-verde">
-                    <span class="tag-nuevo">NUEVO</span>
+                <a href="https://forms.gle/G7AQKbmLsvTo9phG9" target="_blank" class="card">
                     <i class="fa-solid fa-clipboard-list card-icon"></i>
                     <h3>Conformación de Grupos 2026</h3>
                     <p>Formulario para el armado de grupos. Disponible <strong>hasta el viernes 8</strong> durante todo el día.</p>
                     <span class="card-btn"><i class="fa-solid fa-arrow-right"></i></span>
                 </a>
+                <a href="https://drive.google.com/file/d/1qpJaB38jFWCzLRy7Dpw3aJO98pweNUyS/view?usp=sharing" target="_blank" class="card">
+                <span class="tag-nuevo">NUEVO</span>
+                <i class="fa-solid fa-file-lines card-icon"></i>
+                <h3>Consigna E. S. N° 1</h3>
+                <p>Documento de consigna para el desarrollo de la Evaluación de Seguimiento N° 1.</p>
+                <span class="card-btn"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+
+            <a href="#" class="card card-inactiva">
+                <span class="tag-nuevo">NUEVO</span>
+                <i class="fa-solid fa-square-check card-icon"></i>
+                <h3>Evaluación de Seguimiento N° 1</h3>
+                <p>Formulario de entrega para la E.S. N° 1. Estará disponible <strong>desde el lunes 25/5 hasta el miércoles 27/5</strong> durante todo el día.</p>
+            <div class="card-pendiente">
+                <i class="fa-regular fa-clock"></i>
+                <span>Aún no disponible</span>
+            </div>
+            </a>
             </div>
         </section>
 
@@ -212,17 +229,22 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
 
-    <script>
-        if (window.innerWidth > 768) {
-            VanillaTilt.init(document.querySelectorAll(".card"), {
-                max: 15,              
-                speed: 400,           
-                glare: true,          
-                "max-glare": 0.4,     
-                scale: 1.05           
-            });
-        }
-    </script>
+<script>
+    if (window.innerWidth > 768) {
+
+        const activeCards = document.querySelectorAll(
+            ".card:not(.card-inactiva)"
+        );
+
+        VanillaTilt.init(activeCards, {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.4,
+            scale: 1.05
+        });
+    }
+</script>
 
     <script>
         const tiltElements = document.querySelectorAll('.tilt-element');
