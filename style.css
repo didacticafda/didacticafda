@@ -1011,3 +1011,325 @@ details[open] .faq-icon {
         border-color: var(--glass-border); 
     }
 }
+
+/* =========================================
+   COMISIONES
+========================================= */
+
+.comisiones-section {
+    padding: 190px 20px 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.comisiones-container {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comisiones-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.comisiones-header h2 {
+    font-size: 2.4rem;
+    color: var(--faq-title-color);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.comisiones-header p {
+    color: var(--texto-gris);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.table-wrapper {
+
+    width: fit-content;
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    margin: 0 auto;
+
+    background: rgba(255,255,255,0.10);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+@media (prefers-color-scheme: dark) {
+
+    .table-wrapper {
+
+        background: rgba(15,15,20,0.45);
+
+        border: 1px solid rgba(255,255,255,0.06);
+
+        box-shadow:
+            0 10px 30px rgba(0,0,0,0.35),
+            inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .comisiones-table thead {
+
+        background: rgba(255,255,255,0.03);
+    }
+
+    .comisiones-table tbody tr:hover {
+
+        background: rgba(255,255,255,0.03);
+    }
+}
+
+.comisiones-table {
+
+    width: max-content;
+
+    min-width: 1100px;
+
+    border-collapse: collapse;
+
+    color: var(--texto-oscuro);
+}
+
+.comisiones-table thead {
+
+    background: rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(12px);
+}
+
+.comisiones-table th {
+
+    padding: 22px 26px;
+
+    text-align: left;
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+
+    color: var(--faq-title-color);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.comisiones-table td {
+
+    padding: 20px 26px;
+
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+
+    font-size: 0.96rem;
+
+    vertical-align: middle;
+}
+
+.comisiones-table tbody tr {
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.comisiones-table tbody tr:hover {
+
+    background: rgba(255,255,255,0.05);
+}
+
+.comision-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.12);
+
+    border: 1px solid rgba(255,255,255,0.10);
+
+    font-size: 0.82rem;
+
+    font-weight: 700;
+
+    color: var(--faq-title-color);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.institucion-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--acento);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: opacity 0.25s ease;
+}
+
+.institucion-link:hover {
+
+    opacity: 0.7;
+}
+
+.drive-btn {
+
+    background-color: rgba(57, 103, 149, 0.85); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--blanco) !important;
+    font-size: 0.95rem !important;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    transition: all 0.3s ease; 
+}
+
+.drive-btn:hover {
+
+    background-color: rgba(46, 83, 120, 0.7);
+
+    color: var(--blanco) !important;
+
+    border-color: rgba(255, 255, 255, 0.05);
+
+    transform: translateY(2px) scale(0.98);
+
+    box-shadow:
+        inset 0 4px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 3px rgba(0, 0, 0, 0.2),
+        0 0 0 transparent;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .comisiones-section {
+        padding-top: 140px;
+    }
+
+    .comisiones-header h2 {
+        font-size: 2rem;
+    }
+
+    .comisiones-container {
+        width: 100%;
+    }
+
+.table-wrapper {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    padding: 0;
+
+    margin: 0;
+
+    background: rgba(255,255,255,0.14);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: none;
+
+    box-shadow: none;
+
+    border-radius: 0;
+}
+
+    .comisiones-table {
+        min-width: 950px;
+    }
+
+    .comisiones-table th,
+    .comisiones-table td {
+
+        padding: 18px 20px;
+    }
+    #blobs-container {
+
+    display: none;
+}
+}
+/* =========================================
+   BLOBS SOLO COMISIONES
+========================================= */
+
+.comisiones-background-wrapper {
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.comisiones-background-wrapper #blobs-container {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.comisiones-background-wrapper .blob-circle {
+
+    position: absolute;
+}
+
+.comisiones-section {
+
+    position: relative;
+
+    z-index: 2;
+}
