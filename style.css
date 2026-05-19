@@ -449,11 +449,16 @@ body {
 
 .card:nth-child(1):hover .card-icon { color: #00575F; } 
 .card:nth-child(2):hover .card-icon { color: #E78824; } 
-.card:nth-child(3):hover .card-icon { color: #DE4A98; } 
+.card:nth-child(3):hover .card-icon { color: #DE4A98; }     
 .card:nth-child(4):hover .card-icon { color: #8E499B; } 
 .card:nth-child(5):hover .card-icon { color: #fda335; } 
 .card:nth-child(6):hover .card-icon { color: #31ccfb; } 
-.card:nth-child(7):hover .card-icon { color: #fbdd31; } 
+.card:nth-child(7):hover .card-icon { color: #8E499B; } 
+.card:nth-child(8):hover .card-icon { color: #119c0c; } 
+.card:nth-child(9):hover .card-icon { color: #1b6cb7; } 
+.card:nth-child(10):hover .card-icon { color: #DE4A98; } 
+.card:nth-child(11):hover .card-icon { color: #d8de33; } 
+.card:nth-child(12):hover .card-icon { color: #fda335; } 
 
 .card h3 {
     margin-bottom: 10px;
