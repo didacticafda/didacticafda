@@ -232,7 +232,9 @@ target="_blank"
                     </span>
                 </a>
 
-                <a href="#" class="card card-inactiva">
+                <a href="https://forms.gle/rSYh1787ScUXegxm8" 
+                target="_blank"
+                   class="card card-halo-verde">
 
                     <span class="tag-nuevo">NUEVO</span>
 
@@ -245,9 +247,8 @@ target="_blank"
                         Disponible desde el lunes 25 hasta el miércoles 27 inclusive.
                     </p>
 
-                    <div class="card-pendiente">
-                        <i class="fa-regular fa-clock"></i>
-                        <span>Aún no disponible</span>
+                    <div class="card-btn">
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
 
                 </a>
@@ -259,16 +260,16 @@ target="_blank"
     </div>
 
     <!-- CONVICCIÓN -->
-    <section id="conviccion" class="split-section">
+<section id="conviccion" class="split-section">
 
         <div class="gallery-container tilt-element" id="gallery"></div>
 
         <div class="quote-side">
 
             <div class="quote-glass-card tilt-element">
-
+                
                 <p class="quote-text">
-                    « Nadie puede dar clases sin tener la convicción de lo que hace. »
+                    « Nadie puede dar clases sin tener la convicción de lo que hace. No puede decir: yo soy simplemente un técnico, distante del mundo, de la historia. No solamente debo dar testimonio de mi voluntad de cambio, sino que además debo demostrar que en mí, más que una creencia, es una convicción [...]. »
                 </p>
 
                 <span class="quote-author">
@@ -325,6 +326,24 @@ target="_blank"
     }
     </script>
 <script src="effects.js"></script>
+<script src="gallery.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+<script>
+    async function loadComponent(id, file) {
+        const response = await fetch(file);
+        const html = await response.text();
+        document.getElementById(id).innerHTML = html;
+    }
+
+    loadComponent("navbar-container", "components/navbar.html");
+    loadComponent("faq-container", "components/faq.html");
+    loadComponent("memoria-container", "components/memoria.html");
+    loadComponent("footer-container", "components/footer.html");
+</script>
+
+
 </body>
 
 </html>
