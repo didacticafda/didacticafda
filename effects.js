@@ -97,4 +97,4 @@ document.addEventListener("click", (e) => {
         const icono = btnTema.querySelector("i");
         if (icono) icono.className = nuevoTema === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
     }
-});
+}); 
