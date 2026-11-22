@@ -1215,12 +1215,12 @@ html[data-theme="dark"] .table-wrapper {
 .resource-tools, .dialog-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .6rem; }
 .resource-tools { margin-bottom: 1rem; }
 #resource-status:not(:empty) { margin-bottom: 1rem; color: var(--texto-oscuro); }
-.resource-tools button, #resource-dialog button, #resource-grid button:not(.add-card) {
+.resource-tools button, #resource-dialog button, #resource-grid :where(.edit-resource, .remove-resource) {
     font: inherit; font-weight: 600; cursor: pointer; color: var(--acento);
     background: var(--card-hover); border: 1px solid var(--card-border);
     border-radius: 999px; padding: .65rem 1rem; backdrop-filter: blur(12px);
 }
-#resource-grid button:not(.add-card) {
+#resource-grid :where(.edit-resource, .remove-resource) {
     position: absolute; display: grid; place-items: center; padding: 0;
     width: 44px; height: 44px; z-index: 2; color: white;
 }
