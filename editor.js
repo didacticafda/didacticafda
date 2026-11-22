@@ -101,11 +101,19 @@
     }
     function render() {
         page.render(items, Boolean(token), openForm);
-        document.querySelector('.resource-tools').hidden = !token;
-        el('save-draft').disabled = !isDirty() || conflict;
-        el('discard-draft').disabled = !isDirty();
+        const editing = Boolean(token);
+        const root = document.documentElement;
+        if (root.classList.contains('editing') !== editing) {
+            root.classList.toggle('editing', editing);
+            document.dispatchEvent(new Event('editingchange'));
+        }
+        const tools = document.querySelector('.resource-tools');
+        if (tools) tools.hidden = !editing;
         const access = el('access');
         if (access) {
+            document.querySelector('.nav-draft-actions').hidden = !editing;
+            el('save-draft').disabled = !isDirty() || conflict;
+            el('discard-draft').disabled = !isDirty();
             access.title = token ? 'Terminar edición' : 'Acceso para Docentes';
             access.setAttribute('aria-label', access.title);
             access.setAttribute('aria-pressed', String(Boolean(token)));
@@ -156,8 +164,6 @@
     }
     const addGroup = el('add-item');
     if (addGroup) addGroup.onclick = () => openForm('add');
-    el('save-draft').onclick = () => openForm('save');
-    el('discard-draft').onclick = () => openForm('discard');
     window.addEventListener('beforeunload', event => {
         if (isDirty()) {
             event.preventDefault();
@@ -242,6 +248,8 @@
     }
     Promise.all([navbarReady, initialize()]).then(() => {
         render();
+        el('save-draft').onclick = () => openForm('save');
+        el('discard-draft').onclick = () => openForm('discard');
         el('access').onclick = accessClick;
         el('access').disabled = false;
     });

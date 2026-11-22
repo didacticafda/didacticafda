@@ -40,7 +40,15 @@ if (container && window.innerWidth > 768) {
         const duration = 10000 + Math.random()*5000;
         blob.animate([{ transform: 'translate(0,0)' },{ transform: `translate(${moveX}px, ${moveY}px)` },{ transform: 'translate(0,0)' }], { duration: duration, iterations: Infinity, easing: 'ease-in-out' });
     }
+    document.addEventListener('editingchange', () => {
+        const editing = document.documentElement.classList.contains('editing');
+        for (const animation of container.getAnimations({ subtree: true })) {
+            if (editing) animation.pause();
+            else animation.play();
+        }
+    });
     document.addEventListener('mousemove', (e) => {
+        if (document.documentElement.classList.contains('editing')) return;
         const x = e.clientX / window.innerWidth - 1.5;
         const y = e.clientY / window.innerHeight - 0.5;
         document.querySelectorAll('.blob-circle').forEach((blob, i) => {
