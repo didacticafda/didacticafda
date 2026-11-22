@@ -1,7 +1,7 @@
 function createPageEditor({ el, fields, make, action, normalizeUrl }) {
     const grid = el('resource-grid');
     const icons = {
-        envelope: 'Correo', 'file-contract': 'Consigna o formulario', 'book-open': 'Bibliografía',
+        file: 'Documento', envelope: 'Correo', 'file-contract': 'Consigna o formulario', 'book-open': 'Bibliografía',
         'folder-tree': 'Carpeta', pencil: 'Escritura', users: 'Comisiones', video: 'Video',
         'file-pdf': 'PDF', calendar: 'Calendario', link: 'Enlace', bullhorn: 'Aviso'
     };
@@ -73,11 +73,19 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
     }).observe(grid);
     document.fonts.ready.then(fitTitles);
 
-    function preview() {
-        el('icon-preview').className = 'fa-solid fa-' + fields.icon.value;
+    const options = el('icon-options');
+    for (const [key, label] of Object.entries(icons)) {
+        const choice = make('label', 'icon-option');
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'icon';
+        radio.value = key;
+        radio.defaultChecked = key === 'file';
+        const glyph = make('i', 'fa-solid fa-' + key);
+        glyph.setAttribute('aria-hidden', 'true');
+        choice.append(radio, glyph, make('span', '', label));
+        options.append(choice);
     }
-    for (const [key, label] of Object.entries(icons)) fields.icon.add(new Option(label, key));
-    fields.icon.onchange = preview;
     return {
         file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', fallback, render,
         name: item => item.title,
@@ -86,7 +94,6 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
                 for (const key of ['icon', 'title', 'description', 'url']) fields[key].value = item[key];
                 fields.featured.checked = item.featured;
             }
-            preview();
         },
         read() {
             const title = fields.title.value.trim();
