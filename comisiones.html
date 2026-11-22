@@ -34,7 +34,11 @@
 
             </div>
 
-            <div class="resource-tools"><button type="button" id="add-item" hidden>＋ Agregar grupo</button></div>
+            <div class="resource-tools" hidden>
+                <button type="button" id="add-item">＋ Agregar grupo</button>
+                <button type="button" id="discard-draft">Cancelar cambios</button>
+                <button type="button" id="save-draft">Guardar</button>
+            </div>
             <p id="resource-status" role="status"></p>
             <div class="table-wrapper">
 
@@ -555,7 +559,7 @@ Perini Daniela</td>
             </fieldset>
             <p id="delete-prompt" hidden></p>
             <p id="dialog-error" role="alert"></p>
-            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button></div>
+            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button><button id="discard-exit" type="submit" hidden>Descartar y salir</button></div>
         </form>
     </dialog>
     <script src="recursos-config.js"></script>

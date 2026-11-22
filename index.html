@@ -64,8 +64,9 @@
 
         <section id="vinculos" class="vinculos-section">
 
-            <div class="resource-tools">
-                <button type="button" id="add-item" hidden>＋ Agregar tarjeta</button>
+            <div class="resource-tools" hidden>
+                <button type="button" id="discard-draft">Cancelar cambios</button>
+                <button type="button" id="save-draft">Guardar</button>
             </div>
             <p id="resource-status" role="status"></p>
             <div class="vinculos-container" id="resource-grid">
@@ -302,7 +303,7 @@
             </fieldset>
             <p id="delete-prompt" hidden></p>
             <p id="dialog-error" role="alert"></p>
-            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button></div>
+            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button><button id="discard-exit" type="submit" hidden>Descartar y salir</button></div>
         </form>
     </dialog>
     <script src="effects.js"></script>

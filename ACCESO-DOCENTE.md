@@ -9,7 +9,7 @@
 
 ## Para los profesores
 
-Ingresá con el usuario y la clave compartidos. Usá **Agregar tarjeta**, el lápiz para editar o el botón rojo para eliminar. **Destacada** enciende el halo. Al guardar, GitHub registra el cambio y Pages actualiza la portada. En Comisiones, usá **Agregar grupo**, el lápiz o el botón rojo de la fila. El acceso se conserva al navegar entre las dos páginas en la misma pestaña. Tocá el candado abierto para terminar la edición.
+Ingresá con el usuario y la clave compartidos. Usá **Agregar tarjeta**, el lápiz para editar o el botón rojo para eliminar. **Destacada** enciende el halo. Las altas, modificaciones y bajas quedan en un borrador de la página actual. **Guardar** pide confirmación y publica el conjunto en GitHub. **Cancelar cambios** pide confirmación y restaura los datos guardados. Guardá o descartá antes de pasar a otra página. En Comisiones, usá **Agregar grupo**, el lápiz o el botón rojo de la fila. El acceso se conserva al navegar entre las dos páginas en la misma pestaña. Tocá el candado abierto para terminar la edición.
 
 ## Alcance de la autorización
 

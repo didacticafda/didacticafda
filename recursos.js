@@ -42,6 +42,14 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
             }
             grid.append(card);
         }
+        if (token) {
+            const add = make('button', 'card add-card');
+            add.id = 'add-item';
+            add.type = 'button';
+            add.append(make('i', 'fa-solid fa-plus'), make('span', '', 'Agregar tarjeta'));
+            add.onclick = () => openForm('add');
+            grid.append(add);
+        }
         if (!token && window.innerWidth > 768 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
             window.VanillaTilt?.init(grid.querySelectorAll('.card'), { max: 15, speed: 400, glare: true, 'max-glare': 0.4, scale: 1.05 });
         }

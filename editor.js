@@ -7,6 +7,8 @@
     const page = createPageEditor({ el, fields, make, action, normalizeUrl });
     const sessionKey = 'didactica.editor';
     let items = page.fallback;
+    let publishedItems;
+    let conflict = false;
     let revision, selected, mode;
     let token = '';
     let busy = false;
@@ -76,6 +78,7 @@
         const latest = JSON.parse(new TextDecoder().decode(bytes64(file.content)));
         if (!Array.isArray(latest)) throw new Error('El archivo de datos tiene un formato incorrecto.');
         revision = file.sha;
+        publishedItems = latest;
         items = latest;
     }
     async function save(next) {
@@ -86,16 +89,21 @@
             message: 'Actualizar ' + page.label + ' de la cátedra', content, sha: revision, branch: 'main'
         }) });
         if (response.status === 409) {
+            const draft = items;
             await loadLatest(token);
-            return 'Otra persona guardó cambios. Revisá los datos actualizadas antes de volver a editar.';
+            items = draft;
+            conflict = true;
+            throw new Error('Otra persona guardó una versión más reciente. Tu borrador sigue visible. Cancelá los cambios para cargar esa versión.');
         }
         revision = (await response.json()).content.sha;
-        items = next;
+        publishedItems = items = next;
         return 'Guardado en GitHub. El cambio aparecerá cuando Pages termine de publicar.';
     }
     function render() {
         page.render(items, Boolean(token), openForm);
-        el('add-item').hidden = !token;
+        document.querySelector('.resource-tools').hidden = !token;
+        el('save-draft').disabled = !isDirty() || conflict;
+        el('discard-draft').disabled = !isDirty();
         const access = el('access');
         if (access) {
             access.title = token ? 'Terminar edición' : 'Acceso para Docentes';
@@ -105,6 +113,9 @@
         }
     }
 
+    function isDirty() {
+        return Boolean(token) && items !== publishedItems;
+    }
     function openForm(next, item) {
         mode = next;
         selected = item;
@@ -112,30 +123,55 @@
         el('dialog-error').textContent = '';
         el('login-fields').disabled = el('login-fields').hidden = mode !== 'login';
         el('item-fields').disabled = el('item-fields').hidden = !['add', 'edit'].includes(mode);
-        el('delete-prompt').hidden = mode !== 'remove';
-        el('delete-prompt').textContent = mode === 'remove' ? '¿Querés eliminar «' + page.name(item) + '»?' : '';
+        const prompts = {
+            save: '¿Confirmás el guardado de los cambios de esta página?',
+            discard: '¿Querés cancelar los cambios realizados en esta página?',
+            exit: conflict ? 'Hay una versión más reciente. Podés seguir editando o descartar el borrador y salir.' : 'Hay cambios pendientes en esta página. ¿Querés guardarlos antes de salir?',
+            remove: item ? '¿Querés quitar «' + page.name(item) + '» del borrador?' : ''
+        };
+        el('delete-prompt').hidden = !prompts[mode];
+        el('delete-prompt').textContent = prompts[mode] || '';
         if (mode === 'add' || mode === 'edit') page.fill(item);
         el('dialog-title').textContent = { login: 'Acceso para Docentes', add: 'Agregar ' + page.singular,
-            edit: 'Editar ' + page.singular, remove: 'Eliminar ' + page.singular }[mode];
-        el('submit-resource').textContent = { login: 'Ingresar', add: 'Publicar', edit: 'Guardar cambios', remove: 'Eliminar' }[mode];
+            edit: 'Editar ' + page.singular, remove: 'Eliminar ' + page.singular,
+            save: 'Guardar cambios', discard: 'Cancelar cambios', exit: 'Terminar edición' }[mode];
+        el('cancel').textContent = ['save', 'discard', 'exit'].includes(mode) ? 'Seguir editando' : 'Cancelar';
+        el('submit-resource').textContent = { login: 'Ingresar', add: 'Agregar al borrador', edit: 'Aplicar al borrador',
+            remove: 'Quitar del borrador', save: 'Confirmar guardado', discard: 'Descartar cambios', exit: 'Guardar y salir' }[mode];
+        el('discard-exit').hidden = mode !== 'exit';
+        el('submit-resource').disabled = mode === 'exit' && conflict;
         dialog.showModal();
     }
 
     function accessClick() {
         if (!token) return openForm('login');
+        if (isDirty()) return openForm('exit');
+        endSession();
+    }
+    function endSession(message = 'Edición finalizada.') {
         sessionStorage.removeItem(sessionKey);
         token = '';
         render();
-        el('resource-status').textContent = 'Edición finalizada.';
+        el('resource-status').textContent = message;
     }
-    el('add-item').onclick = () => openForm('add');
+    const addGroup = el('add-item');
+    if (addGroup) addGroup.onclick = () => openForm('add');
+    el('save-draft').onclick = () => openForm('save');
+    el('discard-draft').onclick = () => openForm('discard');
+    window.addEventListener('beforeunload', event => {
+        if (isDirty()) {
+            event.preventDefault();
+            event.returnValue = '';
+        }
+    });
     el('cancel').onclick = () => dialog.close();
     dialog.oncancel = event => { if (busy) event.preventDefault(); };
     dialog.onclose = () => { fields.password.value = ''; };
     form.onsubmit = async event => {
         event.preventDefault();
         if (busy) return;
-        busy = el('cancel').disabled = el('submit-resource').disabled = true;
+        const discardOnExit = mode === 'exit' && event.submitter === el('discard-exit');
+        busy = el('discard-exit').disabled = el('cancel').disabled = el('submit-resource').disabled = true;
         el('dialog-error').textContent = '';
         try {
             if (mode === 'login') {
@@ -144,6 +180,16 @@
                 sessionStorage.setItem(sessionKey, auth);
                 token = auth;
                 el('resource-status').textContent = 'Edición habilitada.';
+            } else if (mode === 'save' || (mode === 'exit' && !discardOnExit)) {
+                if (conflict) throw new Error('Revisá la versión más reciente antes de guardar.');
+                const message = await save(items);
+                if (mode === 'exit') endSession(message);
+                else el('resource-status').textContent = message;
+            } else if (mode === 'discard' || mode === 'exit') {
+                items = publishedItems;
+                conflict = false;
+                el('resource-status').textContent = 'Cambios descartados.';
+                if (mode === 'exit') endSession('Cambios descartados. Edición finalizada.');
             } else {
                 let next;
                 if (mode === 'remove') next = items.filter(item => item.id !== selected.id);
@@ -151,15 +197,22 @@
                     const item = { id: selected?.id ?? crypto.randomUUID(), ...page.read() };
                     next = mode === 'add' ? [...items, item] : items.map(old => old.id === item.id ? item : old);
                 }
-                el('resource-status').textContent = await save(next);
+                items = JSON.stringify(next) === JSON.stringify(publishedItems) ? publishedItems : next;
+                el('resource-status').textContent = isDirty() ? 'Cambios pendientes de guardar.' : 'Sin cambios pendientes.';
             }
             dialog.close();
             render();
             el(token ? 'add-item' : 'access').focus({ preventScroll: true });
         } catch (error) {
+            if (conflict) {
+                dialog.close();
+                render();
+                el('resource-status').textContent = error.message;
+                return;
+            }
             el('dialog-error').textContent = error instanceof TypeError ? 'No se pudo conectar. Intentá nuevamente.' : error.message;
         } finally {
-            busy = el('cancel').disabled = el('submit-resource').disabled = false;
+            busy = el('discard-exit').disabled = el('cancel').disabled = el('submit-resource').disabled = false;
         }
     };
 
