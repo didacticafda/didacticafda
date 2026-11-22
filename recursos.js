@@ -21,12 +21,20 @@
     let token = '';
     let mode, selected, busy = false;
 
-    function safeUrl(value) {
-        if (!value || /[\\\u0000-\u001f]/.test(value)) return false;
+    function normalizeUrl(input) {
+        const value = typeof input === 'string' ? input.trim() : '';
+        if (!value || /[\s\\\u0000-\u001f]/.test(value)) return '';
+        if (/^mailto:.+/i.test(value)) return value;
+        // Las páginas del sitio conservan sus rutas relativas.
+        if (!value.startsWith('//') && /^(?:(?:\.{0,2}\/)|(?:[\w%-]+\/))*[\w%-]+\.html(?:[?#].*)?$/i.test(value)) return value;
+
+        const explicit = /^https?:\/\//i.test(value);
         try {
-            const url = new URL(value, location.href);
-            return ['https:', 'http:', 'mailto:'].includes(url.protocol);
-        } catch { return false; }
+            const url = new URL(explicit ? value : 'https://' + value.replace(/^\/\//, ''));
+            if (url.username || url.password) return '';
+            if (!explicit && (!url.hostname.includes('.') || !/^(?:\/\/)?[^/?#:]+(?:[/?#:]|$)/.test(value))) return '';
+            return url.href;
+        } catch { return ''; }
     }
 
     function make(tag, className, text) {
@@ -50,8 +58,9 @@
         for (const item of cards) {
             const card = make(token ? 'article' : 'a', 'card');
             card.classList.toggle('card-halo-verde', item.featured);
-            if (!token && safeUrl(item.url)) {
-                card.href = item.url;
+            const href = normalizeUrl(item.url);
+            if (!token && href) {
+                card.href = href;
                 if (/^https?:$/.test(card.protocol) && card.origin !== location.origin) {
                     card.target = '_blank';
                     card.rel = 'noopener noreferrer';
@@ -72,9 +81,8 @@
         if (!token && window.innerWidth > 768 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
             window.VanillaTilt?.init(grid.querySelectorAll('.card'), { max: 15, speed: 400, glare: true, 'max-glare': 0.4, scale: 1.05 });
         }
-        el('access').querySelector('span').textContent = token ? 'Terminar edición' : 'Acceso docente';
+        el('access').querySelector('span').textContent = token ? 'Terminar edición' : 'Docentes';
         el('access').title = el('access').textContent.trim();
-        el('access').querySelector('i').className = 'fa-solid fa-' + (token ? 'unlock' : 'lock');
         el('add-card').hidden = !token;
         fitTitles();
     }
@@ -102,7 +110,9 @@
     }
     async function unlock(username, password) {
         if (!config) throw new Error('Falta activar el acceso docente en GitHub.');
-        if (username !== 'didacticadocente') throw new Error('Revisá el usuario y la clave.');
+        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(username));
+        const userHash = btoa(String.fromCharCode(...new Uint8Array(digest)));
+        if (userHash !== '1gyX99DYjRI0okWv/2VX4FgyTlSfcKWqh1Xhz6+ijpg=') throw new Error('Revisá el usuario y la clave.');
         const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
         const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: bytes64(config.salt),
             iterations: 600000, hash: 'SHA-256' }, material, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
@@ -164,7 +174,7 @@
             fields.featured.checked = item.featured;
         }
         preview();
-        el('dialog-title').textContent = { login: 'Acceso docente', add: 'Agregar tarjeta', edit: 'Editar tarjeta', remove: 'Eliminar tarjeta' }[mode];
+        el('dialog-title').textContent = { login: 'Docentes', add: 'Agregar tarjeta', edit: 'Editar tarjeta', remove: 'Eliminar tarjeta' }[mode];
         el('submit-resource').textContent = { login: 'Ingresar', add: 'Publicar', edit: 'Guardar cambios', remove: 'Eliminar' }[mode];
         dialog.showModal();
     }
@@ -195,10 +205,8 @@
                 if (mode === 'remove') next = cards.filter(card => card.id !== selected.id);
                 else {
                     const title = fields.title.value.trim();
-                    const url = fields.url.value.trim();
-                    if (!title || !safeUrl(url) || /\s/.test(url) || !(/^(https?:\/\/|mailto:)/i.test(url) || /^[./\w%-]+\.html(?:[?#].*)?$/i.test(url))) {
-                        throw new Error('Ingresá un título y un vínculo web, un correo con mailto: o una página .html del sitio.');
-                    }
+                    const url = normalizeUrl(fields.url.value);
+                    if (!title || !url) throw new Error('Ingresá un título y un vínculo válido, por ejemplo drive.google.com.');
                     const item = { id: selected?.id ?? crypto.randomUUID(), title, url, description: fields.description.value.trim(),
                         icon: fields.icon.value, featured: fields.featured.checked };
                     next = mode === 'add' ? [...cards, item] : cards.map(card => card.id === item.id ? item : card);

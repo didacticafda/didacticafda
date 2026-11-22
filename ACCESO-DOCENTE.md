@@ -3,13 +3,13 @@
 ## Una vez, desde tu computadora
 
 1. Entrá con la cuenta administradora a [crear la autorización en GitHub](https://github.com/settings/personal-access-tokens/new?name=Tarjetas+de+Didactica&target_name=didacticafda&contents=write). En **Repository access**, elegí **Only select repositories** y seleccioná solo **didacticafda/didacticafda**. En **Repository permissions**, comprobá **Contents → Read and write**. Elegí la fecha de vencimiento y copiá el token generado.
-2. Abrí el archivo local **activar-docente.html** con Chrome o Edge. Pegá el token, escribí dos veces la clave que elegiste para **didacticadocente** y tocá **Generar archivo de acceso**. Este formulario funciona en tu computadora, incluso sin conexión.
+2. Abrí el archivo local **activar-docente.html** con Chrome o Edge. Pegá el token, escribí dos veces la clave que elegiste para el equipo docente y tocá **Generar archivo de acceso**. Este formulario funciona en tu computadora, incluso sin conexión.
 3. Reemplazá **recursos-config.js** en la carpeta del sitio por el archivo descargado. Publicá los cambios del proyecto en **main** con el mismo método que ya usás. En GitHub Pages, la fuente de publicación debe incluir los archivos de la raíz de esa rama.
-4. Cuando Pages termine, entrá desde la portada por **Vínculos → Acceso docente**. Para comprobar la publicación, guardá una edición y revisá la portada en otra ventana después del despliegue.
+4. Cuando Pages termine, entrá desde la portada por **Vínculos → Docentes**. Para comprobar la publicación, guardá una edición y revisá la portada en otra ventana después del despliegue.
 
 ## Para los profesores
 
-Ingresá con **didacticadocente** y la clave compartida. Usá **Agregar tarjeta**, el lápiz para editar o el botón rojo para eliminar. **Destacada** enciende el halo. Al guardar, GitHub registra el cambio y Pages actualiza la portada. Con **Terminar edición** o al recargar se descarta el acceso de esa pestaña.
+Ingresá con el usuario y la clave compartidos. Usá **Agregar tarjeta**, el lápiz para editar o el botón rojo para eliminar. **Destacada** enciende el halo. Al guardar, GitHub registra el cambio y Pages actualiza la portada. Con **Terminar edición** o al recargar se descarta el acceso de esa pestaña.
 
 ## Alcance de la autorización
 
