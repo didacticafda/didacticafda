@@ -74,9 +74,17 @@
   {
     "id": "original-9",
     "title": "Cuestionario Proceso de Cursada 2026",
-    "description": "Formulario de cuestionario Proceso de Cursada 2026.",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
+    "description": "Formulario de cuestionario Proceso de Cursada 2026.",
     "icon": "file-contract",
-    "featured": false
+    "featured": true
+  },
+  {
+    "id": "ea801db3-016d-4332-99b7-f3ac838ff3db",
+    "title": "Prueba",
+    "url": "https://www.google.com.ar",
+    "description": "Esto es una prueba",
+    "icon": "bullhorn",
+    "featured": true
   }
 ]
