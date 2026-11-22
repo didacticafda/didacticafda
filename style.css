@@ -132,7 +132,7 @@ NAVBAR Y EFECTOS
     gap: 10px;
 }
 
-.nav-icons-left a {
+.nav-icons-left :is(a, button) {
     color: #3e77b1;
     font-size: 1.2rem;
     text-decoration: none;
@@ -148,8 +148,8 @@ NAVBAR Y EFECTOS
     transition: all 0.3s ease;
 }
 
-.nav-icons-left a:hover,
-.nav-icons-left a:active {
+.nav-icons-left :is(a, button):hover,
+.nav-icons-left :is(a, button):active {
     background-color: rgba(0, 0, 0, 0.05);
     color: #1d3f5f;
     transform: translateY(2px) scale(0.95);
@@ -1246,3 +1246,9 @@ html[data-theme="dark"] .table-wrapper {
 #dialog-error:not(:empty) { margin: .7rem 0; font-weight: 600; }
 .dialog-actions { margin-top: 1rem; }
 #resource-dialog #submit-resource { background: #2e6091; color: white; }
+
+#access, .group-action { cursor: pointer; }
+.group-action { border: 1px solid var(--card-border); background: var(--card-hover); color: var(--acento); border-radius: 50%; width: 38px; height: 38px; margin: 2px; }
+.group-action.remove { background: #b62940; color: white; }
+#resource-dialog legend { margin-bottom: .5rem; font-weight: 600; }
+.card-page-link { margin-top: auto; position: relative; color: var(--acento); font-weight: 600; }

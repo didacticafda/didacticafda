@@ -65,8 +65,7 @@
         <section id="vinculos" class="vinculos-section">
 
             <div class="resource-tools">
-                <button type="button" id="access" title="Docentes"><span>Docentes</span></button>
-                <button type="button" id="add-card" hidden>＋ Agregar tarjeta</button>
+                <button type="button" id="add-item" hidden>＋ Agregar tarjeta</button>
             </div>
             <p id="resource-status" role="status"></p>
             <div class="vinculos-container" id="resource-grid">
@@ -281,7 +280,7 @@
         document.getElementById(id).innerHTML = html;
     }
 
-    loadComponent("navbar-container", "components/navbar.html");
+    const navbarReady = loadComponent("navbar-container", "components/navbar.html");
     loadComponent("faq-container", "components/faq.html");
     loadComponent("memoria-container", "components/memoria.html");
     loadComponent("footer-container", "components/footer.html");
@@ -294,7 +293,7 @@
                 <label>Usuario<input name="username" type="text" autocapitalize="none" spellcheck="false" autocomplete="username" required></label>
                 <label>Clave<input name="password" type="password" autocomplete="current-password" required></label>
             </fieldset>
-            <fieldset id="card-fields" hidden disabled>
+            <fieldset id="item-fields" hidden disabled>
                 <label>Ícono <span class="icon-choice"><i id="icon-preview" aria-hidden="true"></i><select name="icon"></select></span></label>
                 <label>Título<input name="title" maxlength="140" required></label>
                 <label>Bajada<textarea name="description" maxlength="500" rows="2"></textarea></label>
@@ -310,5 +309,6 @@
     <script src="gallery.js"></script>
     <script src="recursos-config.js"></script>
     <script src="recursos.js"></script>
+    <script src="editor.js"></script>
 </body>
 </html>

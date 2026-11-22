@@ -1,58 +1,17 @@
-(() => {
-    const el = id => document.getElementById(id);
+function createPageEditor({ el, fields, make, action, normalizeUrl }) {
     const grid = el('resource-grid');
-    const dialog = el('resource-dialog');
-    const form = el('resource-form');
-    const fields = form.elements;
-    const config = window.recursosConfig;
     const icons = {
         envelope: 'Correo', 'file-contract': 'Consigna o formulario', 'book-open': 'Bibliografía',
         'folder-tree': 'Carpeta', pencil: 'Escritura', users: 'Comisiones', video: 'Video',
         'file-pdf': 'PDF', calendar: 'Calendario', link: 'Enlace', bullhorn: 'Aviso'
     };
-    const initial = Array.from(grid.children, (node, i) => ({
+    const fallback = Array.from(grid.children, (node, i) => ({
         id: 'original-' + i, title: node.querySelector('h3').textContent.trim(),
         description: node.querySelector('p').textContent.trim(), url: node.getAttribute('href'),
         featured: node.classList.contains('card-halo-verde'),
         icon: Object.keys(icons).find(key => node.querySelector('.card-icon').classList.contains('fa-' + key))
     }));
-    let cards = initial;
-    let revision = 0;
-    let token = '';
-    let mode, selected, busy = false;
-
-    function normalizeUrl(input) {
-        const value = typeof input === 'string' ? input.trim() : '';
-        if (!value || /[\s\\\u0000-\u001f]/.test(value)) return '';
-        if (/^mailto:.+/i.test(value)) return value;
-        // Las páginas del sitio conservan sus rutas relativas.
-        if (!value.startsWith('//') && /^(?:(?:\.{0,2}\/)|(?:[\w%-]+\/))*[\w%-]+\.html(?:[?#].*)?$/i.test(value)) return value;
-
-        const explicit = /^https?:\/\//i.test(value);
-        try {
-            const url = new URL(explicit ? value : 'https://' + value.replace(/^\/\//, ''));
-            if (url.username || url.password) return '';
-            if (!explicit && (!url.hostname.includes('.') || !/^(?:\/\/)?[^/?#:]+(?:[/?#:]|$)/.test(value))) return '';
-            return url.href;
-        } catch { return ''; }
-    }
-
-    function make(tag, className, text) {
-        const node = document.createElement(tag);
-        node.className = className;
-        if (text) node.textContent = text;
-        return node;
-    }
-    function action(label, icon, cls, run) {
-        const btn = make('button', cls);
-        btn.type = 'button';
-        btn.title = label;
-        btn.setAttribute('aria-label', label);
-        btn.append(make('i', 'fa-solid fa-' + icon));
-        btn.onclick = run;
-        return btn;
-    }
-    function render() {
+    function render(cards, token, openForm) {
         grid.querySelectorAll('.card').forEach(card => card.vanillaTilt?.destroy());
         grid.replaceChildren();
         for (const item of cards) {
@@ -69,6 +28,11 @@
             card.append(make('i', 'fa-solid fa-' + (Object.hasOwn(icons, item.icon) ? item.icon : 'link') + ' card-icon'),
                 make('h3', '', item.title), make('p', '', item.description));
             if (token) {
+                if (href && new URL(href, location.href).href.split(/[?#]/)[0] === new URL('comisiones.html', location.href).href) {
+                    const link = make('a', 'card-page-link', 'Abrir Comisiones');
+                    link.href = href;
+                    card.append(link);
+                }
                 card.append(action('Editar ' + item.title, 'pencil', 'edit-resource', () => openForm('edit', item)),
                     action('Eliminar ' + item.title, 'minus', 'remove-resource', () => openForm('remove', item)));
             } else {
@@ -81,9 +45,6 @@
         if (!token && window.innerWidth > 768 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
             window.VanillaTilt?.init(grid.querySelectorAll('.card'), { max: 15, speed: 400, glare: true, 'max-glare': 0.4, scale: 1.05 });
         }
-        el('access').querySelector('span').textContent = token ? 'Terminar edición' : 'Docentes';
-        el('access').title = el('access').textContent.trim();
-        el('add-card').hidden = !token;
         fitTitles();
     }
     function fitTitles() {
@@ -104,133 +65,26 @@
     }).observe(grid);
     document.fonts.ready.then(fitTitles);
 
-    const fileApi = 'https://api.github.com/repos/didacticafda/didacticafda/contents/recursos.json';
-    function bytes64(value) {
-        return Uint8Array.from(atob(value), char => char.charCodeAt(0));
-    }
-    async function unlock(username, password) {
-        if (!config) throw new Error('Falta activar el acceso docente en GitHub.');
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(username));
-        const userHash = btoa(String.fromCharCode(...new Uint8Array(digest)));
-        if (userHash !== '1gyX99DYjRI0okWv/2VX4FgyTlSfcKWqh1Xhz6+ijpg=') throw new Error('Revisá el usuario y la clave.');
-        const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
-        const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: bytes64(config.salt),
-            iterations: 600000, hash: 'SHA-256' }, material, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-        try {
-            const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes64(config.iv) }, key, bytes64(config.data));
-            return new TextDecoder().decode(plain);
-        } catch { throw new Error('Revisá el usuario y la clave.'); }
-    }
-    async function github(auth, options = {}) {
-        const response = await fetch(fileApi + (options.method ? '' : '?ref=main'), {
-            ...options, cache: 'no-store', redirect: 'error', credentials: 'omit',
-            headers: { Authorization: 'Bearer ' + auth, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' }
-        });
-        if (!response.ok && response.status !== 409) {
-            throw new Error('GitHub no pudo completar la operación (' + response.status + '). Revisá la autorización y los permisos de la rama main.');
-        }
-        return response;
-    }
-    async function loadLatest(auth) {
-        const response = await github(auth);
-        if (!response.ok) throw new Error('GitHub no pudo cargar las tarjetas.');
-        const file = await response.json();
-        const latest = JSON.parse(new TextDecoder().decode(bytes64(file.content)));
-        if (!Array.isArray(latest)) throw new Error('El archivo de tarjetas tiene un formato incorrecto.');
-        revision = file.sha;
-        cards = latest;
-    }
-    async function save(next) {
-        const bytes = new TextEncoder().encode(JSON.stringify(next, null, 2) + '\n');
-        if (bytes.length >= 1000000) throw new Error('El archivo supera el tamaño admitido por el editor.');
-        const content = btoa(Array.from(bytes, byte => String.fromCharCode(byte)).join(''));
-        const response = await github(token, { method: 'PUT', body: JSON.stringify({
-            message: 'Actualizar tarjetas de la cátedra', content, sha: revision, branch: 'main'
-        }) });
-        if (response.status === 409) {
-            await loadLatest(token);
-            return 'Otra persona guardó cambios. Revisá las tarjetas actualizadas antes de volver a editar.';
-        }
-        revision = (await response.json()).content.sha;
-        cards = next;
-        return 'Guardado en GitHub. El cambio aparecerá cuando Pages termine de publicar.';
-    }
     function preview() {
         el('icon-preview').className = 'fa-solid fa-' + fields.icon.value;
     }
     for (const [key, label] of Object.entries(icons)) fields.icon.add(new Option(label, key));
     fields.icon.onchange = preview;
-    function openForm(next, item) {
-        mode = next;
-        selected = item;
-        form.reset();
-        el('dialog-error').textContent = '';
-        el('login-fields').disabled = el('login-fields').hidden = mode !== 'login';
-        el('card-fields').disabled = el('card-fields').hidden = !['add', 'edit'].includes(mode);
-        el('delete-prompt').hidden = mode !== 'remove';
-        el('delete-prompt').textContent = item ? '¿Querés eliminar «' + item.title + '» del inicio?' : '';
-        if (mode === 'edit') {
-            for (const key of ['icon', 'title', 'description', 'url']) fields[key].value = item[key];
-            fields.featured.checked = item.featured;
-        }
-        preview();
-        el('dialog-title').textContent = { login: 'Docentes', add: 'Agregar tarjeta', edit: 'Editar tarjeta', remove: 'Eliminar tarjeta' }[mode];
-        el('submit-resource').textContent = { login: 'Ingresar', add: 'Publicar', edit: 'Guardar cambios', remove: 'Eliminar' }[mode];
-        dialog.showModal();
-    }
-    el('access').onclick = () => {
-        if (!token) return openForm('login');
-        token = '';
-        render();
-        el('resource-status').textContent = 'Edición finalizada.';
-
-    };
-    el('add-card').onclick = () => openForm('add');
-    el('cancel').onclick = () => dialog.close();
-    dialog.oncancel = event => { if (busy) event.preventDefault(); };
-    dialog.onclose = () => { fields.password.value = ''; };
-    form.onsubmit = async event => {
-        event.preventDefault();
-        if (busy) return;
-        busy = el('cancel').disabled = el('submit-resource').disabled = true;
-        el('dialog-error').textContent = '';
-        try {
-            if (mode === 'login') {
-                const auth = await unlock(fields.username.value.trim(), fields.password.value);
-                await loadLatest(auth);
-                token = auth;
-                el('resource-status').textContent = 'Edición habilitada.';
-            } else {
-                let next;
-                if (mode === 'remove') next = cards.filter(card => card.id !== selected.id);
-                else {
-                    const title = fields.title.value.trim();
-                    const url = normalizeUrl(fields.url.value);
-                    if (!title || !url) throw new Error('Ingresá un título y un vínculo válido, por ejemplo drive.google.com.');
-                    const item = { id: selected?.id ?? crypto.randomUUID(), title, url, description: fields.description.value.trim(),
-                        icon: fields.icon.value, featured: fields.featured.checked };
-                    next = mode === 'add' ? [...cards, item] : cards.map(card => card.id === item.id ? item : card);
-                }
-                el('resource-status').textContent = await save(next);
+    return {
+        file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', fallback, render,
+        name: item => item.title,
+        fill(item) {
+            if (item) {
+                for (const key of ['icon', 'title', 'description', 'url']) fields[key].value = item[key];
+                fields.featured.checked = item.featured;
             }
-            dialog.close();
-            render();
-            el(token ? 'add-card' : 'access').focus({ preventScroll: true });
-        } catch (error) {
-            el('dialog-error').textContent = error instanceof TypeError ? 'No se pudo conectar. Intentá nuevamente.' : error.message;
-        } finally {
-            busy = el('cancel').disabled = el('submit-resource').disabled = false;
+            preview();
+        },
+        read() {
+            const title = fields.title.value.trim();
+            const url = normalizeUrl(fields.url.value);
+            if (!title || !url) throw new Error('Ingresá un título y un vínculo válido, por ejemplo drive.google.com.');
+            return { title, url, description: fields.description.value.trim(), icon: fields.icon.value, featured: fields.featured.checked };
         }
     };
-    render();
-    el('access').disabled = true;
-    fetch('recursos.json', { cache: 'no-cache' }).then(async response => {
-        if (!response.ok) throw new Error();
-        const published = await response.json();
-        if (!Array.isArray(published)) throw new Error();
-        cards = published;
-        render();
-    }).catch(() => {
-        el('resource-status').textContent = 'No se pudo cargar la última versión. Se muestran los recursos iniciales.';
-    }).finally(() => { el('access').disabled = false; });
-})();
+}

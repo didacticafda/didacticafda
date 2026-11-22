@@ -34,6 +34,8 @@
 
             </div>
 
+            <div class="resource-tools"><button type="button" id="add-item" hidden>＋ Agregar grupo</button></div>
+            <p id="resource-status" role="status"></p>
             <div class="table-wrapper">
 
                 <table class="comisiones-table">
@@ -45,6 +47,7 @@
                             <th>Integrantes</th>
                             <th>Institución</th>
                             <th>Carpeta Drive</th>
+                            <th id="row-actions" hidden>Acciones</th>
                         </tr>
                     </thead>
 
@@ -526,11 +529,38 @@ Perini Daniela</td>
         document.getElementById(id).innerHTML = html;
     }
 
-    loadComponent("navbar-container", "components/navbar.html");
+    const navbarReady = loadComponent("navbar-container", "components/navbar.html");
     loadComponent("faq-container", "components/faq.html");
     loadComponent("memoria-container", "components/memoria.html");
     loadComponent("footer-container", "components/footer.html");
     </script>
+    <dialog id="resource-dialog" aria-labelledby="dialog-title">
+        <h2 id="dialog-title"></h2>
+        <form id="resource-form">
+            <fieldset id="login-fields" hidden disabled>
+                <label>Usuario<input name="username" type="text" autocapitalize="none" spellcheck="false" autocomplete="username" required></label>
+                <label>Clave<input name="password" type="password" autocomplete="current-password" required></label>
+            </fieldset>
+            <fieldset id="item-fields" hidden disabled>
+                <label>Comisión<select name="commission"><option>Natalia</option><option>Marcela</option><option>Rodrigo</option></select></label>
+                <label>Grupo N°<input type="number" inputmode="numeric" name="number" min="1" step="1" required></label>
+                <fieldset><legend>Integrantes (al menos uno)</legend>
+                    <label>Integrante 1<input name="member1"></label>
+                    <label>Integrante 2<input name="member2"></label>
+                    <label>Integrante 3<input name="member3"></label>
+                </fieldset>
+                <label>Nombre de la Institución<input name="institution" required></label>
+                <label>Link a Google Mapas<input name="mapUrl" placeholder="maps.app.goo.gl/…" required></label>
+                <label>Carpeta Drive<input name="driveUrl" placeholder="drive.google.com/drive/folders/…" required></label>
+            </fieldset>
+            <p id="delete-prompt" hidden></p>
+            <p id="dialog-error" role="alert"></p>
+            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button></div>
+        </form>
+    </dialog>
+    <script src="recursos-config.js"></script>
+    <script src="comisiones.js"></script>
+    <script src="editor.js"></script>
 <script src="effects.js"></script>
 </body>
 
