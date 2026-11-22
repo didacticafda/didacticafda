@@ -64,7 +64,12 @@
 
         <section id="vinculos" class="vinculos-section">
 
-            <div class="vinculos-container">
+            <div class="resource-tools">
+                <button type="button" id="access" title="Acceso docente"><i class="fa-solid fa-lock"></i> <span>Acceso docente</span></button>
+                <button type="button" id="add-card" hidden>＋ Agregar tarjeta</button>
+            </div>
+            <p id="resource-status" role="status"></p>
+            <div class="vinculos-container" id="resource-grid">
 
                 <a href="mailto:didacticafda@gmail.com" class="card">
                     <i class="fa-solid fa-envelope card-icon"></i>
@@ -282,42 +287,28 @@
     loadComponent("footer-container", "components/footer.html");
     </script>
 
-    <!-- TILT -->
-    <script>
-    if (window.innerWidth > 768) {
-
-        const activeCards = document.querySelectorAll(
-            ".card:not(.card-inactiva)"
-        );
-
-        VanillaTilt.init(activeCards, {
-            max: 15,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.4,
-            scale: 1.05
-        });
-    }
-    </script>
-<script src="effects.js"></script>
-<script src="gallery.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-
-<script>
-    async function loadComponent(id, file) {
-        const response = await fetch(file);
-        const html = await response.text();
-        document.getElementById(id).innerHTML = html;
-    }
-
-    loadComponent("navbar-container", "components/navbar.html");
-    loadComponent("faq-container", "components/faq.html");
-    loadComponent("memoria-container", "components/memoria.html");
-    loadComponent("footer-container", "components/footer.html");
-</script>
-
-
+    <dialog id="resource-dialog" aria-labelledby="dialog-title">
+        <h2 id="dialog-title"></h2>
+        <form id="resource-form">
+            <fieldset id="login-fields" hidden disabled>
+                <label>Usuario<input name="username" type="text" autocapitalize="none" spellcheck="false" autocomplete="username" required></label>
+                <label>Clave<input name="password" type="password" autocomplete="current-password" required></label>
+            </fieldset>
+            <fieldset id="card-fields" hidden disabled>
+                <label>Ícono <span class="icon-choice"><i id="icon-preview" aria-hidden="true"></i><select name="icon"></select></span></label>
+                <label>Título<input name="title" maxlength="140" required></label>
+                <label>Bajada<textarea name="description" maxlength="500" rows="2"></textarea></label>
+                <label>Vínculo<input name="url" placeholder="https://…" required></label>
+                <label class="feature-switch"><input name="featured" type="checkbox" role="switch"> Destacada (mostrar halo)</label>
+            </fieldset>
+            <p id="delete-prompt" hidden></p>
+            <p id="dialog-error" role="alert"></p>
+            <div class="dialog-actions"><button id="cancel" type="button">Cancelar</button><button id="submit-resource">Guardar</button></div>
+        </form>
+    </dialog>
+    <script src="effects.js"></script>
+    <script src="gallery.js"></script>
+    <script src="recursos-config.js"></script>
+    <script src="recursos.js"></script>
 </body>
-
 </html>

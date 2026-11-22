@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; form-action 'none'; base-uri 'none'">
+<title>Activar acceso docente</title>
+<style>
+* { box-sizing: border-box }
+body { max-width: 35rem; margin: 7vh auto; padding: 1.5rem; font: 1rem/1.5 system-ui; color: #193957; background: #f5f8fb }
+label { display: block; margin: 1rem 0; font-weight: 600 }
+input,button { font: inherit; padding: .65rem 1rem; border-radius: .65rem; border: 1px solid #829bb2 }
+input { display: block; width: 100% }
+button { background: #2e6091; color: white; cursor: pointer }
+</style>
+<h1>Activar acceso docente</h1>
+<p>Generá el archivo de acceso para <strong>didacticadocente</strong>. La autorización se cifra en este navegador.</p>
+<form id="setup">
+<label>Autorización de GitHub (fine-grained token)<input type="password" id="pat" required autocomplete="off" pattern="github_pat_[A-Za-z0-9_]+"></label>
+<label>Clave compartida de los profesores<input id="secret" type="password" autocomplete="new-password" minlength="12" required></label>
+<label>Repetir clave<input id="repeat" type="password" autocomplete="new-password" required></label>
+<button>Generar archivo de acceso</button>
+</form>
+<p id="status" role="status"></p>
+<script>
+const byId = id => document.getElementById(id);
+const base64 = bytes => btoa(String.fromCharCode(...bytes));
+byId('setup').onsubmit = async event => {
+    event.preventDefault();
+    const status = byId('status');
+    if (byId('secret').value !== byId('repeat').value) {
+        status.textContent = 'Las claves deben coincidir.';
+        return;
+    }
+    const button = event.target.querySelector('button');
+    button.disabled = true;
+    try {
+        const salt = crypto.getRandomValues(new Uint8Array(16));
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const encode = value => new TextEncoder().encode(value);
+        const material = await crypto.subtle.importKey('raw', encode(byId('secret').value), 'PBKDF2', false, ['deriveKey']);
+        const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 600000, hash: 'SHA-256' },
+            material, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
+        const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, encode(byId('pat').value.trim()));
+        const config = { salt: base64(salt), iv: base64(iv), data: base64(new Uint8Array(ciphertext)) };
+        const link = document.createElement('a');
+        link.download = 'recursos-config.js';
+        link.href = URL.createObjectURL(new Blob(['window.recursosConfig = ' + JSON.stringify(config) + ';\n'], { type: 'text/javascript' }));
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(link.href), 30000);
+        event.target.reset();
+        status.textContent = 'Reemplazá recursos-config.js en la carpeta del sitio por el archivo descargado y publicá los cambios en GitHub.';
+    } catch {
+        status.textContent = 'No se pudo generar el archivo. Abrí esta página local con Chrome o Edge.';
+    } finally { button.disabled = false; }
+};
+</script>
+</html>

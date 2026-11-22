@@ -1,0 +1,82 @@
+[
+  {
+    "id": "original-0",
+    "title": "Contacto",
+    "description": "Podés escribirnos a didacticafda@gmail.com",
+    "url": "mailto:didacticafda@gmail.com",
+    "icon": "envelope",
+    "featured": false
+  },
+  {
+    "id": "original-1",
+    "title": "Programa 2026",
+    "description": "Consultá el programa de la materia para el ciclo 2026.",
+    "url": "https://drive.google.com/file/d/1eCPTQ_kdeVp8T8IH2a-nJvcfV0fooK6q/view",
+    "icon": "file-contract",
+    "featured": false
+  },
+  {
+    "id": "original-2",
+    "title": "Bibliografía",
+    "description": "Repositorio de material de lectura obligatoria y sugerida.",
+    "url": "https://drive.google.com/drive/folders/1-qbqTRyHODDXD3RyRkWkyptFSwZvuORD?usp=sharing",
+    "icon": "book-open",
+    "featured": false
+  },
+  {
+    "id": "original-3",
+    "title": "Materiales",
+    "description": "Colección de materiales variados sugeridos por la cátedra.",
+    "url": "https://drive.google.com/drive/folders/1bib7mNAftbaFfCdjnRo3GAdMvaAsJLD_",
+    "icon": "folder-tree",
+    "featured": false
+  },
+  {
+    "id": "original-4",
+    "title": "Normas de Estilo",
+    "description": "Pautas para el uso de citas y referencias, APA 7.ª edición.",
+    "url": "https://papelcosido.fba.unlp.edu.ar/pautas/NormasDeEstilo.pdf",
+    "icon": "pencil",
+    "featured": false
+  },
+  {
+    "id": "original-5",
+    "title": "Comisiones",
+    "description": "Información sobre comisiones, grupos y recursos de cursada.",
+    "url": "comisiones.html",
+    "icon": "users",
+    "featured": false
+  },
+  {
+    "id": "original-6",
+    "title": "Video E.S. N° 3",
+    "description": "Presentación en video de la Evaluación de Seguimiento N° 3",
+    "url": "https://youtu.be/_m21wRbqdxY",
+    "icon": "video",
+    "featured": false
+  },
+  {
+    "id": "original-7",
+    "title": "Consigna E.S. N° 3",
+    "description": "Documento de consigna para la E.S. N° 3 en PDF",
+    "url": "https://drive.google.com/file/d/1DmW6mqNWwTlgasZVK9429qE7oEtLOWNY/view",
+    "icon": "file-pdf",
+    "featured": false
+  },
+  {
+    "id": "original-8",
+    "title": "Formulario entrega E.S. N° 3",
+    "description": "Formulario para la entrega del recuperatorio de la E.S. N° 3.",
+    "url": "https://forms.gle/VEQz2GLznsHyWnzcA",
+    "icon": "file-contract",
+    "featured": false
+  },
+  {
+    "id": "original-9",
+    "title": "Cuestionario Proceso de Cursada 2026",
+    "description": "Formulario de cuestionario Proceso de Cursada 2026.",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
+    "icon": "file-contract",
+    "featured": false
+  }
+]
