@@ -56,26 +56,18 @@
     "featured": false
   },
   {
-    "id": "original-7",
-    "title": "Consigna E.S. N° 3",
-    "description": "Documento de consigna para la E.S. N° 3 en PDF",
-    "url": "https://drive.google.com/file/d/1DmW6mqNWwTlgasZVK9429qE7oEtLOWNY/view",
-    "icon": "file-pdf",
-    "featured": false
-  },
-  {
-    "id": "original-8",
-    "title": "Formulario entrega E.S. N° 3",
-    "description": "Formulario para la entrega del recuperatorio de la E.S. N° 3.",
-    "url": "https://forms.gle/VEQz2GLznsHyWnzcA",
-    "icon": "file-contract",
-    "featured": false
-  },
-  {
     "id": "original-9",
     "title": "Cuestionario Proceso de Cursada 2026",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
     "description": "Formulario de cuestionario Proceso de Cursada 2026.",
+    "icon": "file-contract",
+    "featured": true
+  },
+  {
+    "id": "0bc4c5d7-0040-4fd0-8cfb-632f6b4fc91d",
+    "title": "Consigna Evaluación N° 4",
+    "url": "https://drive.google.com/drive/folders/0B13rMuPjqya-fmJHNHNnWDlMYVdXV2NCeWNscTM0Nkw1azJoVWprUUNWVXNlTnVIUmE5ejg",
+    "description": "Les compartimos el documento PDF de la E.S. N° 4.",
     "icon": "file-contract",
     "featured": true
   }
