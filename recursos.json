@@ -48,30 +48,6 @@
     "featured": false
   },
   {
-    "id": "original-6",
-    "title": "Video E.S. N° 3",
-    "description": "Presentación en video de la Evaluación de Seguimiento N° 3",
-    "url": "https://youtu.be/_m21wRbqdxY",
-    "icon": "video",
-    "featured": false
-  },
-  {
-    "id": "original-7",
-    "title": "Consigna E.S. N° 3",
-    "description": "Documento de consigna para la E.S. N° 3 en PDF",
-    "url": "https://drive.google.com/file/d/1DmW6mqNWwTlgasZVK9429qE7oEtLOWNY/view",
-    "icon": "file-pdf",
-    "featured": false
-  },
-  {
-    "id": "original-8",
-    "title": "Formulario entrega E.S. N° 3",
-    "description": "Formulario para la entrega del recuperatorio de la E.S. N° 3.",
-    "url": "https://forms.gle/VEQz2GLznsHyWnzcA",
-    "icon": "file-contract",
-    "featured": false
-  },
-  {
     "id": "original-9",
     "title": "Cuestionario Proceso de Cursada 2026",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
