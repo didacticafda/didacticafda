@@ -26,10 +26,10 @@
   {
     "id": "original-3",
     "title": "Materiales",
-    "description": "Colección de materiales variados sugeridos por la cátedra.",
     "url": "https://drive.google.com/drive/folders/1bib7mNAftbaFfCdjnRo3GAdMvaAsJLD_",
+    "description": "Colección de materiales variados sugeridos por la cátedra.",
     "icon": "folder-tree",
-    "featured": false
+    "featured": true
   },
   {
     "id": "original-4",
