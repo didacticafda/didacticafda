@@ -244,18 +244,5 @@
     "institution": "Liceo Víctor Mercante",
     "mapUrl": "https://maps.app.goo.gl/nEdvLurA3GYHSXrw5",
     "driveUrl": "https://drive.google.com/drive/folders/1F0xDpBFXOKG6W5OcMIKQGHF39DVTGBW5?usp=drive_link"
-  },
-  {
-    "id": "7c664e86-0809-4400-acd1-5796e44d3f77",
-    "commission": "Rodrigo",
-    "number": 20,
-    "members": [
-      "Perez Juan",
-      "Gimenez Carina",
-      "Fernandez Andrés"
-    ],
-    "institution": "Liceo Víctor Mercante",
-    "mapUrl": "https://www.google.com/maps/place/Liceo+V%C3%ADctor+Mercante/data=!4m2!3m1!1s0x0:0xaa236af62d1b8758?sa=X&ved=1t:2428&ictx=111",
-    "driveUrl": "https://drive.google.com/drive/folders/0B13rMuPjqya-fmJHNHNnWDlMYVdXV2NCeWNscTM0Nkw1azJoVWprUUNWVXNlTnVIUmE5ejg"
   }
 ]
