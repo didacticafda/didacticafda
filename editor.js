@@ -144,7 +144,7 @@
             edit: 'Editar ' + page.singular, remove: 'Eliminar ' + page.singular,
             save: 'Guardar cambios', discard: 'Cancelar cambios', exit: 'Terminar edición' }[mode];
         el('cancel').textContent = ['save', 'discard', 'exit'].includes(mode) ? 'Seguir editando' : 'Cancelar';
-        el('submit-resource').textContent = { login: 'Ingresar', add: 'Agregar al borrador', edit: 'Aplicar al borrador',
+        el('submit-resource').textContent = { login: 'Ingresar', add: page.submitLabel ?? 'Agregar al borrador', edit: page.submitLabel ?? 'Aplicar al borrador',
             remove: 'Quitar del borrador', save: 'Confirmar guardado', discard: 'Descartar cambios', exit: 'Guardar y salir' }[mode];
         el('discard-exit').hidden = mode !== 'exit';
         el('submit-resource').disabled = mode === 'exit' && conflict;

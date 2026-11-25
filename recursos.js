@@ -87,7 +87,7 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
         options.append(choice);
     }
     return {
-        file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', fallback, render,
+        file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', submitLabel: 'Guardar', fallback, render,
         name: item => item.title,
         fill(item) {
             if (item) {
