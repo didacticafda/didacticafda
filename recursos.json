@@ -1,58 +1,61 @@
-[
-  {
-    "id": "original-0",
-    "title": "Contacto",
-    "description": "Podés escribirnos a didacticafda@gmail.com",
-    "url": "mailto:didacticafda@gmail.com",
-    "icon": "envelope",
-    "featured": false
-  },
-  {
-    "id": "original-1",
-    "title": "Programa 2026",
-    "description": "Consultá el programa de la materia para el ciclo 2026.",
-    "url": "https://drive.google.com/file/d/1eCPTQ_kdeVp8T8IH2a-nJvcfV0fooK6q/view",
-    "icon": "file-contract",
-    "featured": false
-  },
-  {
-    "id": "original-2",
-    "title": "Bibliografía",
-    "description": "Repositorio de material de lectura obligatoria y sugerida.",
-    "url": "https://drive.google.com/drive/folders/1-qbqTRyHODDXD3RyRkWkyptFSwZvuORD?usp=sharing",
-    "icon": "book-open",
-    "featured": false
-  },
-  {
-    "id": "original-3",
-    "title": "Materiales",
-    "url": "https://drive.google.com/drive/folders/1bib7mNAftbaFfCdjnRo3GAdMvaAsJLD_",
-    "description": "Colección de materiales variados sugeridos por la cátedra.",
-    "icon": "folder-tree",
-    "featured": false
-  },
-  {
-    "id": "original-4",
-    "title": "Normas de Estilo",
-    "description": "Pautas para el uso de citas y referencias, APA 7.ª edición.",
-    "url": "https://papelcosido.fba.unlp.edu.ar/pautas/NormasDeEstilo.pdf",
-    "icon": "pencil",
-    "featured": false
-  },
-  {
-    "id": "original-5",
-    "title": "Comisiones",
-    "description": "Información sobre comisiones, grupos y recursos de cursada.",
-    "url": "comisiones.html",
-    "icon": "users",
-    "featured": false
-  },
-  {
-    "id": "original-9",
-    "title": "Cuestionario Proceso de Cursada 2026",
-    "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
-    "description": "Formulario de cuestionario Proceso de Cursada 2026.",
-    "icon": "file-contract",
-    "featured": true
-  }
-]
+{
+  "vacation": true,
+  "cards": [
+    {
+      "id": "original-0",
+      "title": "Contacto",
+      "description": "Podés escribirnos a didacticafda@gmail.com",
+      "url": "mailto:didacticafda@gmail.com",
+      "icon": "envelope",
+      "featured": false
+    },
+    {
+      "id": "original-1",
+      "title": "Programa 2026",
+      "description": "Consultá el programa de la materia para el ciclo 2026.",
+      "url": "https://drive.google.com/file/d/1eCPTQ_kdeVp8T8IH2a-nJvcfV0fooK6q/view",
+      "icon": "file-contract",
+      "featured": false
+    },
+    {
+      "id": "original-2",
+      "title": "Bibliografía",
+      "description": "Repositorio de material de lectura obligatoria y sugerida.",
+      "url": "https://drive.google.com/drive/folders/1-qbqTRyHODDXD3RyRkWkyptFSwZvuORD?usp=sharing",
+      "icon": "book-open",
+      "featured": false
+    },
+    {
+      "id": "original-3",
+      "title": "Materiales",
+      "url": "https://drive.google.com/drive/folders/1bib7mNAftbaFfCdjnRo3GAdMvaAsJLD_",
+      "description": "Colección de materiales variados sugeridos por la cátedra.",
+      "icon": "folder-tree",
+      "featured": false
+    },
+    {
+      "id": "original-4",
+      "title": "Normas de Estilo",
+      "description": "Pautas para el uso de citas y referencias, APA 7.ª edición.",
+      "url": "https://papelcosido.fba.unlp.edu.ar/pautas/NormasDeEstilo.pdf",
+      "icon": "pencil",
+      "featured": false
+    },
+    {
+      "id": "original-5",
+      "title": "Comisiones",
+      "description": "Información sobre comisiones, grupos y recursos de cursada.",
+      "url": "comisiones.html",
+      "icon": "users",
+      "featured": false
+    },
+    {
+      "id": "original-9",
+      "title": "Cuestionario Proceso de Cursada 2026",
+      "url": "https://docs.google.com/forms/d/e/1FAIpQLSdoWbsdcOS-KmsuOMR1hzoDFZuuOlVeJEUJy0UBK878kgCAPw/viewform",
+      "description": "Formulario de cuestionario Proceso de Cursada 2026.",
+      "icon": "file-contract",
+      "featured": true
+    }
+  ]
+}
