@@ -9,7 +9,8 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
         grid.querySelectorAll('.card').forEach(card => card.vanillaTilt?.destroy());
         grid.replaceChildren();
         el('vacation-toggle').textContent = vacation ? 'Desactivar modo vacaciones' : 'Activar modo vacaciones';
-        el('vacation-notice').hidden = !vacation;
+        el('vinculos').hidden = vacation && !token;
+        document.documentElement.classList.toggle('resources-hidden', vacation && !token);
         if (vacation) return;
         for (const item of cards) {
             const card = make(token ? 'article' : 'a', 'card');

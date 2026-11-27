@@ -173,6 +173,8 @@
     function endSession(message = 'Edición finalizada.') {
         sessionStorage.removeItem(sessionKey);
         token = '';
+        items = publishedItems;
+        vacation = publishedVacation;
         render();
         el('resource-status').textContent = message;
     }
@@ -263,7 +265,12 @@
             }
         }
         try {
-            const response = await fetch(page.file, { cache: 'no-cache' });
+            // En producción, la portada lee la misma revisión de main que guarda el editor.
+            // Pages puede seguir sirviendo el JSON anterior durante un despliegue.
+            const liveHome = vacationButton && ['didacticafda.com.ar', 'www.didacticafda.com.ar', 'didacticafda.github.io'].includes(location.hostname);
+            const response = liveHome
+                ? await fetch(fileApi + '?ref=main', { cache: 'no-store', credentials: 'omit', headers: { Accept: 'application/vnd.github.raw+json' } })
+                : await fetch(page.file, { cache: 'no-cache' });
             if (!response.ok) throw new Error();
             const published = await response.json();
             readPublished(published);

@@ -1208,6 +1208,7 @@ html[data-theme="dark"] .table-wrapper {
 }
 /* Editor de recursos del inicio */
 #vinculos { flex-direction: column; }
+#vinculos[hidden], .resources-hidden .nav-button-right { display: none; }
 #resource-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 #resource-grid h3 { line-height: 1.2; overflow-wrap: anywhere; }
 #resource-grid p { overflow-wrap: anywhere; }
