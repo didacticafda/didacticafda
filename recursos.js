@@ -5,15 +5,12 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
         'folder-tree': 'Carpeta', pencil: 'Escritura', users: 'Comisiones', video: 'Video',
         'file-pdf': 'PDF', calendar: 'Calendario', link: 'Enlace', bullhorn: 'Aviso'
     };
-    const fallback = Array.from(grid.children, (node, i) => ({
-        id: 'original-' + i, title: node.querySelector('h3').textContent.trim(),
-        description: node.querySelector('p').textContent.trim(), url: node.getAttribute('href'),
-        featured: node.classList.contains('card-halo-verde'),
-        icon: Object.keys(icons).find(key => node.querySelector('.card-icon').classList.contains('fa-' + key))
-    }));
-    function render(cards, token, openForm) {
+    function render(cards, token, openForm, vacation) {
         grid.querySelectorAll('.card').forEach(card => card.vanillaTilt?.destroy());
         grid.replaceChildren();
+        el('vacation-toggle').textContent = vacation ? 'Desactivar modo vacaciones' : 'Activar modo vacaciones';
+        el('vacation-notice').hidden = !vacation;
+        if (vacation) return;
         for (const item of cards) {
             const card = make(token ? 'article' : 'a', 'card');
             card.classList.toggle('card-halo-verde', item.featured);
@@ -87,7 +84,7 @@ function createPageEditor({ el, fields, make, action, normalizeUrl }) {
         options.append(choice);
     }
     return {
-        file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', submitLabel: 'Guardar', fallback, render,
+        file: 'recursos.json', label: 'tarjetas', singular: 'tarjeta', submitLabel: 'Guardar', fallback: [], render,
         name: item => item.title,
         fill(item) {
             if (item) {

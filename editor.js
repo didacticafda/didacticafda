@@ -7,6 +7,9 @@
     const page = createPageEditor({ el, fields, make, action, normalizeUrl });
     const sessionKey = 'didactica.editor';
     let items = page.fallback;
+    const vacationButton = el('vacation-toggle');
+    let vacation = false;
+    let publishedVacation = false;
     let publishedItems;
     let conflict = false;
     let revision, selected, mode;
@@ -71,18 +74,25 @@
         }
         return response;
     }
+    function readPublished(data) {
+        const withSettings = vacationButton && !Array.isArray(data);
+        const records = withSettings ? data?.cards : data;
+        if (!Array.isArray(records) || (withSettings && typeof data.vacation !== 'boolean')) {
+            throw new Error('El archivo de datos tiene un formato incorrecto.');
+        }
+        publishedVacation = vacation = withSettings ? data.vacation : false;
+        publishedItems = items = records;
+    }
     async function loadLatest(auth) {
         const response = await github(auth);
         if (!response.ok) throw new Error('GitHub no pudo cargar los datos.');
         const file = await response.json();
         const latest = JSON.parse(new TextDecoder().decode(bytes64(file.content)));
-        if (!Array.isArray(latest)) throw new Error('El archivo de datos tiene un formato incorrecto.');
+        readPublished(latest);
         revision = file.sha;
-        publishedItems = latest;
-        items = latest;
     }
     async function save(next) {
-        const bytes = new TextEncoder().encode(JSON.stringify(next, null, 2) + '\n');
+        const bytes = new TextEncoder().encode(JSON.stringify(vacationButton ? { vacation, cards: next } : next, null, 2) + '\n');
         if (bytes.length >= 1000000) throw new Error('El archivo supera el tamaño admitido por el editor.');
         const content = btoa(Array.from(bytes, byte => String.fromCharCode(byte)).join(''));
         const response = await github(token, { method: 'PUT', body: JSON.stringify({
@@ -90,17 +100,20 @@
         }) });
         if (response.status === 409) {
             const draft = items;
+            const draftVacation = vacation;
             await loadLatest(token);
             items = draft;
+            vacation = draftVacation;
             conflict = true;
             throw new Error('Otra persona guardó una versión más reciente. Tu borrador sigue visible. Cancelá los cambios para cargar esa versión.');
         }
         revision = (await response.json()).content.sha;
         publishedItems = items = next;
+        publishedVacation = vacation;
         return 'Guardado en GitHub. El cambio aparecerá cuando Pages termine de publicar.';
     }
     function render() {
-        page.render(items, Boolean(token), openForm);
+        page.render(items, Boolean(token), openForm, vacation);
         const editing = Boolean(token);
         const root = document.documentElement;
         if (root.classList.contains('editing') !== editing) {
@@ -122,7 +135,7 @@
     }
 
     function isDirty() {
-        return Boolean(token) && items !== publishedItems;
+        return Boolean(token) && (items !== publishedItems || vacation !== publishedVacation);
     }
     function openForm(next, item) {
         mode = next;
@@ -132,6 +145,7 @@
         el('login-fields').disabled = el('login-fields').hidden = mode !== 'login';
         el('item-fields').disabled = el('item-fields').hidden = !['add', 'edit'].includes(mode);
         const prompts = {
+            vacation: 'El modo vacaciones oculta todas las tarjetas interactivas. ¿Deseás continuar?',
             save: '¿Confirmás el guardado de los cambios de esta página?',
             discard: '¿Querés cancelar los cambios realizados en esta página?',
             exit: conflict ? 'Hay una versión más reciente. Podés seguir editando o descartar el borrador y salir.' : 'Hay cambios pendientes en esta página. ¿Querés guardarlos antes de salir?',
@@ -142,10 +156,10 @@
         if (mode === 'add' || mode === 'edit') page.fill(item);
         el('dialog-title').textContent = { login: 'Acceso para Docentes', add: 'Agregar ' + page.singular,
             edit: 'Editar ' + page.singular, remove: 'Eliminar ' + page.singular,
-            save: 'Guardar cambios', discard: 'Cancelar cambios', exit: 'Terminar edición' }[mode];
+            vacation: 'Activar modo vacaciones', save: 'Guardar cambios', discard: 'Cancelar cambios', exit: 'Terminar edición' }[mode];
         el('cancel').textContent = ['save', 'discard', 'exit'].includes(mode) ? 'Seguir editando' : 'Cancelar';
         el('submit-resource').textContent = { login: 'Ingresar', add: page.submitLabel ?? 'Agregar al borrador', edit: page.submitLabel ?? 'Aplicar al borrador',
-            remove: 'Quitar del borrador', save: 'Confirmar guardado', discard: 'Descartar cambios', exit: 'Guardar y salir' }[mode];
+            remove: 'Quitar del borrador', vacation: 'Activar', save: 'Confirmar guardado', discard: 'Descartar cambios', exit: 'Guardar y salir' }[mode];
         el('discard-exit').hidden = mode !== 'exit';
         el('submit-resource').disabled = mode === 'exit' && conflict;
         dialog.showModal();
@@ -162,6 +176,16 @@
         render();
         el('resource-status').textContent = message;
     }
+    function setVacation(value) {
+        vacation = value;
+        el('resource-status').textContent = isDirty() ? 'Cambios pendientes de guardar.' : 'Sin cambios pendientes.';
+        render();
+    }
+    if (vacationButton) vacationButton.onclick = () => {
+        if (!token) return;
+        if (vacation) setVacation(false);
+        else openForm('vacation');
+    };
     const addGroup = el('add-item');
     if (addGroup) addGroup.onclick = () => openForm('add');
     window.addEventListener('beforeunload', event => {
@@ -186,6 +210,8 @@
                 sessionStorage.setItem(sessionKey, auth);
                 token = auth;
                 el('resource-status').textContent = 'Edición habilitada.';
+            } else if (mode === 'vacation') {
+                setVacation(true);
             } else if (mode === 'save' || (mode === 'exit' && !discardOnExit)) {
                 if (conflict) throw new Error('Revisá la versión más reciente antes de guardar.');
                 const message = await save(items);
@@ -193,6 +219,7 @@
                 else el('resource-status').textContent = message;
             } else if (mode === 'discard' || mode === 'exit') {
                 items = publishedItems;
+                vacation = publishedVacation;
                 conflict = false;
                 el('resource-status').textContent = 'Cambios descartados.';
                 if (mode === 'exit') endSession('Cambios descartados. Edición finalizada.');
@@ -208,7 +235,7 @@
             }
             dialog.close();
             render();
-            el(token ? 'add-item' : 'access').focus({ preventScroll: true });
+            (token ? (el('add-item') || vacationButton) : el('access')).focus({ preventScroll: true });
         } catch (error) {
             if (conflict) {
                 dialog.close();
@@ -239,10 +266,9 @@
             const response = await fetch(page.file, { cache: 'no-cache' });
             if (!response.ok) throw new Error();
             const published = await response.json();
-            if (!Array.isArray(published)) throw new Error();
-            items = published;
+            readPublished(published);
         } catch {
-            el('resource-status').textContent = 'No se pudo cargar la última versión. Se muestran los datos iniciales.';
+            el('resource-status').textContent = vacationButton ? 'No se pudieron cargar los recursos.' : 'No se pudo cargar la última versión. Se muestran los datos iniciales.';
         }
         render();
     }
